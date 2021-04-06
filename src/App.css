@@ -1,38 +1,43 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn-round, .iconBox .btn {
+  border-radius: 50px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btn-outline {
+  border: 2px solid #fff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.btn.icon-left i {
+  line-height: .8;
+  margin-right: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.btn span {
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn span.bh {
+  background: #fff;
+  border: 10px solid #ffffff8f;
+  border-radius: 50%;
+  display: block;
+  height: 0;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: width 0.7s ease 0s, height 0.7s ease 0s;
+  -o-transition: width 0.7s ease 0s, height 0.7s ease 0s;
+  transition: width 0.7s ease 0s, height 0.7s ease 0s;
+  width: 0;
+  z-index: 1;
+  opacity: 0;
 }
