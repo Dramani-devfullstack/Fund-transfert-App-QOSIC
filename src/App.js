@@ -16,7 +16,7 @@ class App extends Component {
       <div>
         <Header/>
           <Switch>
-            <Route path='/home' exact component={Home} />
+            <Route path='/' exact component={Home} />
             <Route path='/login' exact component={Login} />
             <Route path='/register' exact component={Register} />
           </Switch>
@@ -24,8 +24,6 @@ class App extends Component {
       </div>
       </Router>
     );
-  }
-  
+  }  
 }
-
 export default App;
