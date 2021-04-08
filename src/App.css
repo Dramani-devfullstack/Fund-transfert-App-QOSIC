@@ -6,38 +6,3 @@
   box-sizing: border-box;
 }
 
-.btn-round, .iconBox .btn {
-  border-radius: 50px;
-}
-
-.btn-outline {
-  border: 2px solid #fff;
-}
-
-.btn.icon-left i {
-  line-height: .8;
-  margin-right: 20px;
-}
-
-.btn span {
-  position: relative;
-  z-index: 2;
-}
-
-.btn span.bh {
-  background: #fff;
-  border: 10px solid #ffffff8f;
-  border-radius: 50%;
-  display: block;
-  height: 0;
-  position: absolute;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-transition: width 0.7s ease 0s, height 0.7s ease 0s;
-  -o-transition: width 0.7s ease 0s, height 0.7s ease 0s;
-  transition: width 0.7s ease 0s, height 0.7s ease 0s;
-  width: 0;
-  z-index: 1;
-  opacity: 0;
-}

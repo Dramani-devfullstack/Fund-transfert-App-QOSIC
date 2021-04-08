@@ -7,6 +7,7 @@ import Home from './components/Home'
 import Footer from './components/Footer/Footer'
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Account from './components/Account/Account';
 
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/login' exact component={Login} />
             <Route path='/register' exact component={Register} />
+            <Route path='/account' exact component={Account} />
           </Switch>
         <Footer/> 
       </div>

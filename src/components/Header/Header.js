@@ -9,9 +9,9 @@ function Header(){
   return(
 
     <div className="header03">
-      <div className="header-top">
+      {/* <div className="header-top">
           <div className="container">
-            <div className="row align-items-center">
+             <div className="row align-items-center">
               <div className="col-sm-8">
                 <div className="d-inline-flex ml-auto">
                   <a href="#" className="top-text"><FaPhoneAlt/> marketplace@qosic.com</a>   
@@ -21,17 +21,11 @@ function Header(){
                 <div className="social-icons">
                   
                 </div>
-                <Link to='/login'>
-                    <a href="http://masizatech.com/login" className="login btn-default"><span className="bh"></span> <span>login</span></a>
-                </Link>
-                
-                <Link to='/register'>
-                     <a href="http://masizatech.com/register" className="login btn-warning"><span className="bh"></span> <span>Register</span></a>
-                </Link>
+               
                 </div>
-            </div>
+            </div> 
           </div>
-        </div>
+        </div> */}
 
         <div className="header-main">
           <div className="container d-flex align-items-center">
