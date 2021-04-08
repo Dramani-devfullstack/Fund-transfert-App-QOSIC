@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import {Link} from 'react-router-dom'
 import { FaPhoneAlt } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import HeaderMenu from './HeaderMenu';
 
-const Header=()=> (  
+function Header(){  
+  return(
+
     <div className="header03">
       <div className="header-top">
           <div className="container">
@@ -38,21 +42,18 @@ const Header=()=> (
              </Link>
              
               <nav className="primary-menu ml-auto">
-                  <a id="mobile-menu-toggler" href="#"><i className="fas fa-bars"></i></a>
-                  <ul>
-                        <Link to='/'>
-                            <li className="current-menu-item"><a href="http://masizatech.com">Home</a></li>
-                        </Link>
-                      <li><a href="http://masizatech.com/locale/fr">FR<span className="flag-icon flag-icon-fr text-dark"></span></a> </li>
-                      <li><a href="http://masizatech.com/locale/en">EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li>
-                      
-                    </ul>
+                  <a id="mobile-menu-toggler" href="#"><FaBars/></a> 
+                  <HeaderMenu/>
               </nav>
+              
           </div>
       </div>
       
     </div>
-)
+
+  )
+    
+}
   
 
 

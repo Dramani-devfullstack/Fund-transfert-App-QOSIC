@@ -1,3 +1,5 @@
+
+
 .header, .header02, .header03, .header04 {
     display: block;
     position: absolute;
@@ -288,7 +290,17 @@
   }
   
   .header03 .login:hover {
+    color: red;
+    text-decoration: none;
+  }
+
+  .header03 a.login:hover {
     color: #fff;
+  }
+
+  .header03 a:hover {
+    color: #fff;
+    text-decoration: none;
   }
   
   @media screen and (max-width: 767px) {

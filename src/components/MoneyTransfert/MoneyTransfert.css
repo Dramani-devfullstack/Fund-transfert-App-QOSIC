@@ -131,6 +131,20 @@ section {
   width: 100%;
 }
 
+.easy-steps {
+  display: block;
+  position: relative;
+  padding: 100px 0;
+  width: 100%;
+}
+
+.faq-tab {
+  display: block;
+  position: relative;
+  padding: 100px 0;
+  width: 100%;
+}
+
 /**
  *
  * Common CSS
@@ -221,7 +235,7 @@ section {
   box-shadow: none;
 }
 
-.btn.icon-left i {
+.btn.icon-left #faPlay {
   line-height: .8;
   margin-right: 20px;
 }
@@ -1138,6 +1152,7 @@ section {
 
 .header03 .login:hover {
   color: #fff;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 767px) {
@@ -2464,6 +2479,10 @@ section {
   font-weight: 500;
   padding: 20px 10px;
   text-transform: capitalize;
+}
+
+.form-tab .nav-tabs a:hover {
+  text-decoration: none;
 }
 
 .form-tab .nav-tabs a.active {
