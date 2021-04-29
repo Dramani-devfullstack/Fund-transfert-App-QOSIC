@@ -861,12 +861,12 @@ section {
 /**
  * Header style
  */
-.header, .header02, .header03, .header04 {
+/* .header, .header02, .header03, .header04 {
   display: block;
   position: absolute;
   left: 0;
   top: 0;
-  height: 88px;
+  height: 20px;
   width: 100%;
   z-index: 9;
   -webkit-transition: all .5s;
@@ -1185,8 +1185,8 @@ section {
     height: 80px;
   }
 }
-
-.header-top {
+ */
+/* .header-top {
   padding: 10px 0;
   background: #002563;
 }
@@ -1218,7 +1218,7 @@ section {
     display: none;
   }
 }
-
+ */
 .primary-menu .btn span {
   color: #fff;
 }
@@ -1806,7 +1806,7 @@ section {
 /**
  * Footer
  */
-.footer {
+/* .footer {
   background-size: auto;
   background-position: center top;
   background-repeat: no-repeat;
@@ -1966,7 +1966,7 @@ section {
   .footer .copyright {
     font-size: 12px;
   }
-}
+} */
 
 /**
  * Currency form

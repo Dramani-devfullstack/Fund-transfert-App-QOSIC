@@ -5,8 +5,9 @@ import './Header.css'
 function HeaderMenu() {
     return (
         <Fragment>
-             <ul>
-                       <Link to='/'>
+            <ul>
+                <nav className="primary-menu ml-auto">
+                        <Link to='/'>
                             <li className="current-menu-item"><a href="http://masizatech.com">Home</a></li>
                         </Link>
                         
@@ -22,9 +23,9 @@ function HeaderMenu() {
                             <option  href="http://masizatech.com/locale/en">EN</option>
                         </select>
                       {/* <li><a href="http://masizatech.com/locale/fr">FR<span className="flag-icon flag-icon-fr text-dark"></span></a> </li>
-                      <li><a href="http://masizatech.com/locale/en">EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li> */}
-                      
-                    </ul>
+                      <li><a href="http://masizatech.com/locale/en">EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li> */}                    
+                </nav>
+            </ul>
         </Fragment>
     )
 }

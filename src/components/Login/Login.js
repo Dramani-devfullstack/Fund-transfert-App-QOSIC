@@ -18,7 +18,7 @@ function Login() {
                                         <div className="form-group row">
                                             <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                                             <div className="col-md-6">
-                                                <input id="email" type="email" className="form-control " name="email" value="" required autoComplete="email" autofocus />
+                                                <input id="email" type="email" className="form-control " name="email"  required autoComplete="email" autofocus />
                                             </div>
                                         </div>
 

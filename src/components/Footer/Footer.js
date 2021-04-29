@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import './Footer.css'
+import {Link} from 'react-router-dom'
 
 function Footer() {
     return (
@@ -20,7 +21,9 @@ function Footer() {
                         </div>
                     </div>
                     <div className="col-md-6">
-                        <div className="copyright">Copyright &copy; <a href="https://qosic.com">QOS</a> 2021</div>
+                        <div className="copyright">Copyright &copy; 
+                        <Link to='/conditinsandterms'><a>QOS</a></Link> 
+                        2021</div>
                     </div>
                     </div>
                 </div>

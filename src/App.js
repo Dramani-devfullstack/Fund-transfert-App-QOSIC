@@ -8,23 +8,45 @@ import Footer from './components/Footer/Footer'
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Account from './components/Account/Account';
+import ConditionTerms from './components/ConditionTerms/ConditionTerms';
+import GeneralRoute from './GeneralRoute';
+import AccountRoute from './AccountRoute';
 
 
 class App extends Component {
   render(){
     return (
-      <Router> 
+      <Router>
       <div>
-        <Header/>
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/login' exact component={Login} />
-            <Route path='/register' exact component={Register} />
-            <Route path='/account' exact component={Account} />
-          </Switch>
-        <Footer/> 
+        {/* <AccountRoute/>
+        <GeneralRoute/> */}
+        
+          
+            <Switch>
+            <Header/>
+              <Route path='/' exact>
+                <Home/>
+              </Route>
+              <Route path='/home' exact>
+                <Home/>
+              </Route>
+              <Route path='/login' exact component={Login} />
+              <Route path='/register' exact component={Register} />
+              <Route path='/account' exact component={Account} />
+              <Route path='/conditinsandterms' exact component={ConditionTerms} />
+              <Route path='/account' exact   children={Account} /> 
+              <Footer/>
+            </Switch>
+          
+          
+         
+         
+         
       </div>
       </Router>
+     
+
+     
     );
   }  
 }

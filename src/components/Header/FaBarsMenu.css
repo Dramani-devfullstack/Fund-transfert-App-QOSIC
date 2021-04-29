@@ -1,0 +1,49 @@
+
+
+
+   #menu-primary ul li {
+    background-color: #256be6;
+    display: none;
+    text-align: left; 
+  }
+
+  #menu-primary ul {
+    max-height: 400px;
+    overflow-y: scroll;
+    padding: 10px 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+  }
+
+  #menu-primary ul li a {
+    color: #fff;
+  }
+
+  @media screen and (max-width: 992px) {
+    #menu-primary ul li {
+      background-color: #256be6;
+      display: block;
+      text-align: left; 
+    }
+  
+    #menu-primary ul {
+      max-height: 400px;
+      overflow-y: scroll;
+      padding: 5px 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+    }
+  
+    #menu-primary ul li a {
+      color: #fff;
+    }
+  }
+
+ 
+
+
+ 

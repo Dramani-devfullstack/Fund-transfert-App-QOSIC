@@ -1,32 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Header.css';
 import {Link} from 'react-router-dom'
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import HeaderMenu from './HeaderMenu';
+import FaBarsMenu from './FaBarsMenu';
 
-function Header(){  
+function Header(){ 
+  const [active, setActive] = useState(false)
+  
   return(
 
     <div className="header03">
-      {/* <div className="header-top">
-          <div className="container">
-             <div className="row align-items-center">
-              <div className="col-sm-8">
-                <div className="d-inline-flex ml-auto">
-                  <a href="#" className="top-text"><FaPhoneAlt/> marketplace@qosic.com</a>   
-                </div>
-              </div>
-              <div className="col-sm-4 text-sm-right">
-                <div className="social-icons">
-                  
-                </div>
-               
-                </div>
-            </div> 
-          </div>
-        </div> */}
-
         <div className="header-main">
           <div className="container d-flex align-items-center">
              <Link to='/'>
@@ -36,9 +21,11 @@ function Header(){
              </Link>
              
               <nav className="primary-menu ml-auto">
-                  <a id="mobile-menu-toggler" href="#"><FaBars/></a> 
-                  <HeaderMenu/>
+              <a onClick={()=>setActive(!active)} id="mobile-menu-toggler" href="#"><FaBars/></a>
+                   <HeaderMenu/>
               </nav>
+              { active ? <FaBarsMenu  /> : null }
+              
               
           </div>
       </div>
