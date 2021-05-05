@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import './Login.css'
-import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
+
 
 function Login() {
     return (

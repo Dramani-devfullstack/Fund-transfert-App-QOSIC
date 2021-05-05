@@ -9,21 +9,16 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Account from './components/Account/Account';
 import ConditionTerms from './components/ConditionTerms/ConditionTerms';
-import GeneralRoute from './GeneralRoute';
-import AccountRoute from './AccountRoute';
+
 
 
 class App extends Component {
   render(){
     return (
       <Router>
-      <div>
-        {/* <AccountRoute/>
-        <GeneralRoute/> */}
-        
-          
-            <Switch>
+      <div>          
             <Header/>
+             <Switch>
               <Route path='/' exact>
                 <Home/>
               </Route>
@@ -35,13 +30,8 @@ class App extends Component {
               <Route path='/account' exact component={Account} />
               <Route path='/conditinsandterms' exact component={ConditionTerms} />
               <Route path='/account' exact   children={Account} /> 
-              <Footer/>
-            </Switch>
-          
-          
-         
-         
-         
+            </Switch> 
+            <Footer/>
       </div>
       </Router>
      
