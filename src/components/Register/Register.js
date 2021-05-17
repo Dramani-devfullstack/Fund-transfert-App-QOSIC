@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import './Register.css'
+import cookies from 'react-cookies'
 
 function Register() {
 
@@ -41,15 +42,15 @@ function Register() {
                                 <form onSubmit={submit}>
                                  {/* <input type="hidden" name="_token" value="5|B8Rd6iaLVLfL0UDEzMHYrU1FrziigEtWIsedTaA1" /> */}
                           {/* <input type="hidden" name="CSRF token"  value="5|B8Rd6iaLVLfL0UDEzMHYrU1FrziigEtWIsedTaA1"/> */}
-                                    <div className="form-group row">
-                                        <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
+                                    <div className="m-group row">
+                                        <label htmlFor="name" className="col-md-4 col-form-label text-md-right">Name</label>
                                         <div className="col-md-6">
                                             <input id="name" type="text" className="form-control " name="name" required  autofocus onChange={e=>setName(e.target.value)} />
                                         </div>
                                     </div>
 
                                     <div className="form-group row">
-                                        <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                        <label htmlFor="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                                         <div className="col-md-6">
                                             <input id="email" type="email" className="form-control " name="email"  required   onChange={e=>setEmail(e.target.value)}  />
@@ -57,14 +58,14 @@ function Register() {
                                     </div>
 
                                     <div className="form-group row">
-                                        <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
+                                        <label htmlFor="password" className="col-md-4 col-form-label text-md-right">Password</label>
                                         <div className="col-md-6">
                                             <input id="password" type="password" className="form-control " name="password" required autocomplete="new-password" onChange={e=>setPassword(e.target.value)} />
                                         </div>
                                     </div>
 
                                     <div className="form-group row">
-                                        <label for="password-confirm" className="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                                        <label htmlFor="password-confirm" className="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                                         <div className="col-md-6">
                                             <input id="password-confirm" type="password" className="form-control" name="password_confirmation" required autocomplete="new-password" onChange={e=>setPasswordConfirm(e.target.value)} />
