@@ -1,33 +1,40 @@
 import React, { Fragment, useState } from 'react'
-import './Register.css'
-import cookies from 'react-cookies'
+import $ from "jquery";
+import axios from 'axios'
+
 
 function Register() {
 
     const [name, setName]=useState('')
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
-    const [passwordConfirm, setPasswordConfirm]=useState('')
+    const [confirm_password, setPasswordConfirm]=useState('')
 
     const  submit= async(e)=>{
+       
         e.preventDefault()
-        const response = await fetch('http://api.sendime.com:9000/api/register', {
-            method:'POST',
-            headers: {  'Content-Type':'application/json',
-                          'Accept': 'application/json', 
-                          'Authorization': 'Bearer Let3sr6cwrkG6yXVQUV7csPh9PvbAEdpk5TH7MJdnGd2KFu9'  
-                      },
-            body: JSON.stringify(
-                {
-                    name,
-                    email,
-                    password,
-                    passwordConfirm,
-                }
-            )
-        })
-        const content = await response.json();
-        console.log(content)
+      var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer Let3sr6cwrkG6yXVQUV7csPh9PvbAEdpk5TH7MJdnGd2KFu9");
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Accept", "application/json");
+        myHeaders.append("Access-Control-Allow-Origin", "*");
+
+        var raw = JSON.stringify({"name":name,"email":email,"password":password,"password_confirmation":confirm_password});
+        console.log(raw)
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        };
+
+        fetch("http://api.sendime.com:9000/api/register", requestOptions)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+      
+
+       
+  
     }
 
     return (
