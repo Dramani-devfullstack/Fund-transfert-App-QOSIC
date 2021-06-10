@@ -1,190 +1,216 @@
-import React, {Fragment} from 'react'
-import './Account.scss'
-import { FaBars } from "react-icons/fa";
-import { FaChevronDown } from "react-icons/fa";
-import {withRouter} from 'react-router-dom'
+import React, { useState } from 'react'
+import './Account.css'
+import { authentificationService } from '../Services/authentificationService'
+import { useAuthContext } from '../UserContext'
+import { useEffect } from 'react'
+import { FaCheckCircle, FaSave } from "react-icons/fa";
 
 function Account() {
+
+    const isAuth = useAuthContext()
+    const user = isAuth.user
+    useEffect(() => {
+        authentificationService.getTransacInfo().then(result => console.log(result))
+        let li = document.querySelectorAll('.nav-tabs>li>a')
+        let content = document.querySelector('#menu1')
+        let content2 = document.querySelector('#menu2')
+        li[0].addEventListener('click', function () {
+            this.classList.add('active')
+            li[1].classList.remove('active')
+            content.classList.add('active')
+            content.classList.add('show')
+            content2.classList.remove('active')
+            content2.classList.remove('show')
+        })
+
+        li[1].addEventListener('click', function () {
+            this.classList.add('active')
+            li[0].classList.remove('active')
+            content2.classList.add('active')
+            content2.classList.add('show')
+            content.classList.remove('active')
+            content.classList.remove('show')
+        })
+
+        let updateBtn = document.querySelector('.btn-link ')
+        let accord = document.querySelector('.accord')
+        let close = document.querySelector('.close')
+        updateBtn.addEventListener('click', function () {
+            this.classList.add('disabled')
+            accord.classList.add('personDetails_active')
+        })
+
+        close.addEventListener('click', function () {
+            accord.classList.remove('personDetails_active')
+            updateBtn.classList.remove('disabled')
+        })
+
+        return () => {
+            li[0].removeEventListener()
+            li[1].removeEventListener()
+            content.removeEventListener()
+            content2.removeEventListener()
+            updateBtn.removeEventListener()
+            accord.removeEventListener()
+            close.removeEventListener()
+        }
+    }, [isAuth])
+
+    const name = user.name
+    const [fullname, setFullname] = useState('')
+    const [msisdn, setMsisdn] = useState('')
+    const [address, setAddress] = useState('')
+    const [existing_password, setExisting_password] = useState('')
+    const [confirm_password, setConfirm_password] = useState('')
+    const [new_password, setNew_password] = useState('')
+
+    const handleProfileChange = async (e) => {
+        e.preventDefault()
+        authentificationService.updateProfile(name, fullname, msisdn, address)
+        console.log(name, fullname, msisdn, address)
+    }
+
+    const handlePasswordChange = async (e) => {
+        e.preventDefault()
+        authentificationService.updatePassword(name, fullname, msisdn, address, existing_password, confirm_password, new_password)
+        console.log(name, fullname, msisdn, address, existing_password, confirm_password, new_password)
+
+    }
     return (
-        <Fragment>      
-    <div className="header03">
-        <div className="header-main">
-          <div className="container d-flex align-items-center">
-              <a className="logo d-inline-flex" href="http://masizatech.com">
-                  <img src="http://masizatech.com/assets/logo.png" alt=""/>
-              </a>
-              <nav className="primary-menu ml-auto">
-                  <a id="mobile-menu-toggler" href="#"><FaBars/></a>
-                  <ul>
-                      <li className="current-menu-item"><a href="http://masizatech.com">Home</a>
-                      <li><a href="http://masizatech.com/locale/fr">FR<span className="flag-icon flag-icon-fr text-dark"></span></a> </li>
-                      <li><a href="http://masizatech.com/locale/en">EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li>
-                      
-                        <li className="has-menu-child pro-menu-drop">
-                          <a href="http://masizatech.com/account">
-                              <div className="header-pro-thumb">
-                                    <img className="rounded-circle" src="http://masizatech.com/assets/avatar.png" alt=""/>
-                                     </div>Hello, Faizou <FaChevronDown/>
-                          </a>
-                          <ul className="dropdown-menu-md sub-menu profile-drop">
-                              <li className="dropdown-header">
-                                  <div>
-                                      <h5 className="hidden-xs m-b-0 text-primary text-ellipsis"></h5>
-                                      <div className="small text-muted"><span></span></div>
-                                  </div>
-                              </li>
-                              <li>
-                                  <hr className="mx-n3 mt-0"/>
-                              </li>
-                              <li className="nav__create-new-profile-link">
-                                  <a href="http://masizatech.com/account/profile">
-                                      <span>View personal profile</span>
-                                  </a>
-                              </li>
-                              <li className="nav__create-new-profile-link">
-                                <a href="http://masizatech.com/account/successful/transactions">
-                                    <span>View transactions</span>
-                                </a>
-                            </li>
-                              <li className="divider"></li>
-                              
-                              <li className="nav__dropdown-menu-items">
-                                  <a href="http://masizatech.com/logout" onclick="event.preventDefault();
-                                  document.getElementById('userlogout-form').submit();"><i className="icon icon-logout"></i>
-                                  <span>
-                                      <span className="fas fa-sign-out-alt" style={{color:"red"}}></span> Logout
-                                 </span></a>
-                             </li>
-                             <form id="userlogout-form" action="http://masizatech.com/logout" method="POST" style={{display: "none"}}>
-                                <input type="hidden" name="_token" value="XjildUhQRlq6MUZXhgbOsbqQdAFOMIqXWWZmTLHV"/>                             
-                             </form>
-                          </ul>
-                      </li>
-                      
-                      <li><a className="current-menu-item" onclick="event.preventDefault(); document.getElementById('userlogout-form').submit();">
-                        <i className="fas fa-sign-out-alt" style={{color:"red"}}></i>
-                        </a></li>
-                        </li>
-                    </ul>
-              </nav>
-          </div>
-        </div>
-      </div>
-      
-         <div className="profilebar">
-          <div className="container">
-              <div className="row">
-                  
-                  <div className="col">
-                      <div className="local-time">
-                          <p><b>Local Time:</b> 2021-04-08 11:45:14</p>
-                      </div>
-                  </div>
-                  <div className="col">
-                      <div className="local-time">
-                          <p><b>Last Visit:</b> 2021-04-08 11:45:14</p>
-                      </div>
-                  </div>
-                  <div className="col">
-                    <div className="local-time">
-                        <p><b>Last Visit IP:</b> 41.138.90.87</p>
-                    </div>
-                </div>
-                  <div className="col notify-col text-right">
-                      <div className="notify-btn"><a href=""><i className="fas fa-shield-alt"></i></a></div>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <div className="profile-area">
+            <h3 className="admin-heading bg-offwhite">
+                <a className="btn-link pbtn " data-id="edit-personal-details"><i className="fas fa-edit mr-1"></i>Update</a>
+                <p>Personal Profile</p>
+                <span>Your Personal information</span>
+            </h3>
 
-        <div id="content" className="py-4">
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-3 sidebar">
-                        <div className="widget admin-widget p-0">
-    <div className="Profile-menu">
-        <ul className="nav secondary-nav">
-            <li className="nav-item  active "><a className="nav-link" href="http://masizatech.com/account"><i className="fas fa-tachometer-alt"></i>Dashboard</a></li>
-            <li className="nav-item "><a className="nav-link" href="http://masizatech.com/account/profile"><i className="fab fa-autoprefixer"></i>Account</a></li>
-            <li className="nav-item "><a className="nav-link" href="http://masizatech.com/account/payment/details"><i className="far fa-paper-plane"></i>Send Money</a></li>
-            <li className="nav-item "><a className="nav-link" href="http://masizatech.com/account/successful/transactions"><i className="fas fa-list-ul"></i>Transactions</a></li>
-            
-        </ul>
-    </div>
-</div>
-        
-        </div>
-                    
-                    <div className="col-lg-9">
-                        <div className="profile-content">
-                            
-        
-                            <div className="bg-light shadow-sm rounded p-4 mb-4">
-                                <h3 className="text-5 font-weight-400 text-warning mb-4">Recent Payment Statistics<span className="text-muted text-4"></span></h3>
-                                <div className="row">
-                                       <div className="col col-sm col-lg">
-                                    
-                                    <table className="table table-striped">
-                                      <thead>
-                                        <tr>
-                                          <th>Service</th>
-                                          <th>Value</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td>Today Transaction Count</td>
-                                          <td>0</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Today Transaction Amount</td>
-                                          <td>0FCFA | 0NGN</td>
-                                        </tr>
-                                      
-                                      </tbody>
-                                    </table>
-                    
-                                  </div>
-                                  
-                    
-                                  
-                    
+            <div id="edit-personal-details" className="accord bg-offwhite shadow "  >
+                <div className="content-edit-area">
+                    <div className="edit-header">
+                        <h5 className="title">Personal Information</h5>
+                        <button type="button" className="close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div className="edit-content">
+                        <form onSubmit={handleProfileChange} id="personaldetails" >
+
+                            <div className="row">
+                                <div className="col">
+                                    <div className="form-group">
+                                        <label for="Name"><b>Full Name</b></label>
+                                        <input type="text" name="fullname" className="form-control" data-pr-form="firstName" id="firstName" placeholder="Full Name" onChange={e => setFullname(e.target.value)} required />
+                                    </div>
                                 </div>
-                              </div>
+                                <div className="col">
+                                    <div className="form-group">
+                                        <label for="Number"><b>Mobile <span className="text-muted font-weight-500">(Primary)</span></b></label>
+                                        <input id="Number" name="msisdn" type="text" className="form-control" data-pr-form="numberid" id="" onChange={e => setMsisdn(e.target.value)} required placeholder="Number" />
+                                    </div>
+                                </div>
+                                <div className="col-md-12">
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="form-group">
+                                                <label for="mobile-number">About/Address</label>
+                                                <input type="text" name="address" className="form-control" data-pr-form="mobile-number" id="mobile-number" onChange={e => setAddress(e.target.value)} required />
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        </div>
-                        
+                                    <button className="btn btn-default" type="submit"><FaSave />Save Changes</button>
+
+                                </div>
+
+                            </div>
+                        </form>
                     </div>
-                   
+                </div>
+
+
+                <div className="content-edit-area">
+                    <div className="edit-header">
+                        <h5 className="title">Change Password | Security</h5>
+                    </div>
+                    <div className="edit-content">
+                        <form onSubmit={handlePasswordChange} id="change-password">
+                            <input type="hidden" name="_token" value="1fZZzqWC0fx1NLr2ZRD0D4kx8fC0jsDz5ysBgGsy" />
+                            <div className="form-group">
+                                <label for="Current-pass">Confirm Current Password</label>
+                                <input type="password" name="existing_password" className="form-control" data-pr-form="Current-pass" id="Current-pass" required onChange={e => setExisting_password(e.target.value)} placeholder="Confirm Current Password" />
+                            </div>
+                            <div className="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="password" name="new_password" className="form-control" data-pr-form="new-password" id="new-Password" required onChange={e => setNew_password(e.target.value)} placeholder="Enter New Password" />
+                            </div>
+                            <div className="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" name="confirm_password" className="form-control" data-pr-form="confirmg-password" id="confirm-Password" required onChange={e => setConfirm_password(e.target.value)} placeholder="Enter Confirm New Password" />
+                            </div>
+                            <button className="btn btn-default" type="submit"><FaSave /> Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div className="infoItems shadow">
+                <ul className="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#menu1" className="active">Personal information</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Login and security</a></li>
+                </ul>
+
+                <div className="tab-content">
+                    <div id="menu1" className="tab-pane fade in active show ">
+                        <div className="row">
+                            <p className="col-sm-3"><b>Full Name</b></p>
+                            <p className="col-sm-9">{user.name}</p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Email</b></p>
+                            <p className="col-sm-9">{user.email}</p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Mobile</b></p>
+                            <p className="col-sm-9">{user.msisdn}</p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Address</b></p>
+                            <p className="col-sm-9">{user.address}</p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Account Status</b></p>
+                            <p className="col-sm-9"><span className="text-success" data-toggle="tooltip" data-original-title="Active"><FaCheckCircle color='green' /></span></p>
+                        </div>
+                    </div>
+
+                    <div id="menu2" className="tab-pane fade">
+                        <div className="row">
+                            <p className="col-sm-3"><b>Active Login Time</b></p>
+                            <p className="col-sm-9"> {user.active_login_at} </p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Active Login IP</b></p>
+                            <p className="col-sm-9">{user.active_login_ip} </p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Last Login Time</b></p>
+                            <p className="col-sm-9">{user.last_login_at} </p>
+                        </div>
+                        <hr />
+                        <div className="row">
+                            <p className="col-sm-3"><b>Last Login IP</b></p>
+                            <p className="col-sm-9">{user.last_login_ip} </p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-       
-<footer className="footer">
-    
-    <div className="foo-btm">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="foo-navigation">
-              <ul>
-                <li><a href="#">Terms and Conditions</a></li>
-                <li><a href="#">Privacy & Policy</a></li>
-                <li><a href="#">Legal</a></li>
-                <li><a href="#">Notice</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="copyright">Copyright &copy; <a href="https://qosic.com">QOS</a> 2021</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-          
-    </Fragment>
     )
 }
 
-export default withRouter(Account)
+export default Account

@@ -1,45 +1,36 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState,useEffect } from 'react'
 import { authentificationService } from '../Services/authentificationService'
+import {useAuthContext} from '../UserContext'
+import { useHistory, Redirect } from "react-router-dom";
 
 
 
 function Register() {
 
+    
     const [name, setName]=useState('')
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
-    const [confirm_password, setPasswordConfirm]=useState('')
+    const [password_confirmation, setPasswordConfirm]=useState('')
+    const isAuth = useAuthContext()
+    const history = useHistory()
 
-    const  submit= async(e)=>{
-       
+    useEffect(()=>{ 
+        const loggedIn = isAuth.user 
+        console.log(loggedIn)
+        console.log(isAuth)
+            if(loggedIn){
+                history.push('/mailactivation')
+            }  else {
+                <Redirect to='/register'/>
+            }
+        })
+
+    const  submit= async(e)=>{   
         e.preventDefault()
-        authentificationService.register(name,email,password, confirm_password)
-            .then()
-        
-
-
-    //   var myHeaders = new Headers();
-    //     myHeaders.append("Authorization", "Bearer Let3sr6cwrkG6yXVQUV7csPh9PvbAEdpk5TH7MJdnGd2KFu9");
-    //     myHeaders.append("Content-Type", "application/json");
-    //     myHeaders.append("Accept", "application/json");
-    //     myHeaders.append("Access-Control-Allow-Origin", "*");
-
-    //     var raw = JSON.stringify({"name":name,"email":email,"password":password,"password_confirmation":confirm_password});
-    //     console.log(raw)
-    //     var requestOptions = {
-    //     method: 'POST',
-    //     headers: myHeaders,
-    //     body: raw,
-    //     };
-
-    //     fetch("http://api.sendime.com:9000/api/register", requestOptions)
-    //     .then(response => response.json())
-    //     .then(result => console.log(result))
-    //     .catch(error => console.log('error', error));
-      
-
-       
-  
+        authentificationService.register(name,email,password,password_confirmation)
+            .then(user=>{isAuth.setUser(user)})
+            .then(user=>{console.log(user)})     
     }
 
     return (

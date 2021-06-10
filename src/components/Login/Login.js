@@ -11,22 +11,27 @@ function Login() {
     let history = useHistory();
     const isAuth = useAuthContext()
 
-    useEffect(()=>{
-    const loggedIn = isAuth.user   
-    
+    useEffect(()=>{ 
+    const loggedIn = isAuth.user 
+    console.log(loggedIn)
         if(loggedIn){
-            history.push('/account',)
+            history.push('/dashboard')
         }  else {
             <Redirect to='/login'/>
         }
-
     })
 
     const  loginHandleSubmit= async(e)=>{ 
     e.preventDefault()
     authentificationService.login(email, password)
-    .then(result=>isAuth.setUser(result.data))    
-    
+    .then(user=>{
+        if(Boolean(user)){
+            localStorage.setItem('currentUser', JSON.stringify(user.access_token))
+            authentificationService.getUser().then(user=>isAuth.setUser(user))   
+        }
+        console.log(isAuth)
+        console.log(user)      
+    })    
 }
    
         
@@ -72,8 +77,6 @@ function Login() {
                                                 <button type="submit" className="btn btn-primary">
                                                     Login
                                                 </button>
-                                                
-
                                                 <a>
                                                   Forgot Your Password?
                                                 </a>                             

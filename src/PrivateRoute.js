@@ -4,9 +4,8 @@ import { authentificationService } from './components/Services/authentificationS
 import {useAuthContext} from './components/UserContext'
 
 function PrivateRoute ({ component: Component, ...rest }) {
-    const {isAuth} = useAuthContext({})
     const currentUser = localStorage.getItem('currentUser'); 
-    console.log(currentUser)
+    
 
     
     return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Header.css';
 import {Link} from 'react-router-dom'
-import { FaPhoneAlt } from "react-icons/fa";
+
 import { FaBars } from "react-icons/fa";
 import HeaderMenu from './HeaderMenu';
 import FaBarsMenu from './FaBarsMenu';
