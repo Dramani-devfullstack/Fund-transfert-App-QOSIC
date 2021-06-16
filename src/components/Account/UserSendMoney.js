@@ -3,10 +3,67 @@ import './Account.scss'
 import './styles.scss'
 import './Account.css'
 import { authentificationService } from '../Services/authentificationService'
+import UserConfirmMoney from './UserConfirmMoney'
+
 
 
 function UserSendMoney() {
+    
+    const [TransfertInfo, setTransfertInfo] = useState(false)
+    // const [confirm, setConfirm] = useState(false)
+    const [initial, setInitial]=useState(1)
+    console.log(TransfertInfo)
+    // console.log(confirm)
+    console.log(initial)
+   
+    console.log()  
+
+
+
+    
+
     useEffect(() => {
+        let confirmBtn = document.querySelector('#confirmBtn')
+        let detailBtn = document.querySelector('#detailBtn')
+        let sucessBtn = document.querySelector('#sucessBtn')
+        let pills_profile = document.querySelector('#pills-profile')
+        let pills_profile2 = document.querySelector('#pills-profile2')
+           
+        console.log("sssss", initial)
+        if(initial === 2){
+            
+            confirmBtn.classList.add('active')
+            detailBtn.classList.remove('active')
+            pills_profile.classList.remove('show')
+            pills_profile.classList.remove('active')
+            pills_profile2.classList.add('show')
+            pills_profile2.classList.add('active')
+
+            confirmBtn.addEventListener('click', () => {
+                confirmBtn.classList.add('active')
+                detailBtn.classList.remove('active')
+                pills_profile.classList.remove('show')
+                pills_profile.classList.remove('active')
+                pills_profile2.classList.add('show')
+                pills_profile2.classList.add('active')
+              } )
+        }
+
+
+
+        // confirm ? {      
+        //  confirmBtn.addEventListener('click', () => {
+        //     confirmBtn.classList.add('active')
+        //     detailBtn.classList.remove('active')
+        //     pills_profile.classList.remove('show')
+        //     pills_profile.classList.remove('active')
+        //     pills_profile2.classList.add('show')
+        //     pills_profile2.classList.add('active')
+        //   } : null
+           
+       
+     
+
         let li = document.querySelectorAll('.nav-tabs>li>a')
         let sendMoney = document.querySelector('#send-money')
         let recieveMoney = document.querySelector('#receive-money')
@@ -28,8 +85,17 @@ function UserSendMoney() {
 
         })
 
+      
+        
 
-    })
+
+        return () => {
+            li[0].removeEventListener('click', null)
+            li[1].removeEventListener('click', null)
+            sendMoney.removeEventListener('click', null)
+            recieveMoney.removeEventListener('click', null)
+        }
+    }, [initial])
 
     const [receiver_number, setReceiver_number] = useState('')
     const [amount, setAmount] = useState('')
@@ -37,37 +103,42 @@ function UserSendMoney() {
     const [email, setEmail] = useState('')
     const [account_number, setAccount_number] = useState('')
     const [bank_code, setBank_code] = useState('Select Bank')
+    
 
 
-    const handleSendMoney = (e)=>{
+    const handleSendMoney = (e) => {
         e.preventDefault()
-        authentificationService.confirmNGN_XOF(receiver_number, amount, purpose,email)
-        .then(result=>{
-            return result
-        })
+        authentificationService.confirmNGN_XOF(receiver_number, amount, purpose, email)
+            .then(result => {
+                if(result.status === "000"){
+                    setTransfertInfo(result)
+                    setInitial(2)
+                }                
+            })
     }
 
-    const handleReceiveMoney = (e)=>{
+    const handleReceiveMoney = async (e) => {
         e.preventDefault()
-        authentificationService.confirmXOF_NGN(account_number, amount, purpose,email,bank_code)
-        .then(result=>{
-            return result
-        })
+        authentificationService.confirmXOF_NGN(account_number, amount, purpose, email, bank_code)
+            .then(result => {
+                console.log(result)
+            })
     }
+
+   
 
     return (
-
         <div className="profile-content">
             <h3 className="admin-heading">Send Money</h3>
             <ul className="nav nav-pills">
                 <li className="nav-item">
-                    <a className="nav-link  active" href="">Details</a>
+                    <a id='detailBtn' className="nav-link  active" href="">Details</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Confirm</a>
+                    <a id='confirmBtn' className="nav-link" >Confirm</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Success</a>
+                    <a id='sucessBtn' className="nav-link" >Success</a>
                 </li>
             </ul>
             <div className="tab-content" id="pills-tabContent">
@@ -87,7 +158,7 @@ function UserSendMoney() {
                                     <div className="form-tab">
                                         <ul className="nav nav-tabs">
                                             <li><a className='active' data-toggle="tab" >NGN to
-                                                                XOF</a></li>
+                                                XOF</a></li>
                                             <li><a data-toggle="tab" >XOF to NGN</a></li>
                                         </ul>
                                         <div className="tab-content currency-form">
@@ -98,7 +169,7 @@ function UserSendMoney() {
                                                         <div className="join-field">
                                                             <input type="number"
                                                                 required min="100" max="500000" name="amount"
-                                                                onChange={(e)=>{setAmount(e.target.value)}}
+                                                                onChange={(e) => { setAmount(e.target.value) }}
                                                                 placeholder="1000" />
                                                             <input type="hidden" required
                                                                 name="send_provider_id" value="3" />
@@ -106,7 +177,7 @@ function UserSendMoney() {
                                                                 <span className="selected"><img
                                                                     src="http://masizatech.com/assets/fend/images/flags/nigeria.png"
                                                                     alt="" />NGN &nbsp;
-                                                                            </span>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -115,7 +186,7 @@ function UserSendMoney() {
                                                         <label>Receiver Number (MOOV/MTN BJ) </label>
                                                         <div className="join-field">
                                                             <input type="text" required
-                                                                onChange={(e)=>{setReceiver_number(e.target.value)}}
+                                                                onChange={(e) => {setReceiver_number(e.target.value)}}
                                                                 name="receiver_number"
                                                                 placeholder="22990505050" />
                                                         </div>
@@ -126,7 +197,7 @@ function UserSendMoney() {
                                                         <div className="join-field">
                                                             <input type="text" required
                                                                 name="purpose"
-                                                                onChange={(e)=>{setPurpose(e.target.value)}}
+                                                                onChange={(e) => { setPurpose(e.target.value) }}
                                                                 placeholder="" />
                                                         </div>
                                                     </div>
@@ -135,8 +206,8 @@ function UserSendMoney() {
                                                         <label>Exchange Rate || Transaction Fee</label>
                                                         <div className="join-field">
                                                             <input type="email"
-                                                                name="receiver_email" placeholder="example@example.com" 
-                                                                />
+                                                                name="receiver_email" placeholder="example@example.com"
+                                                            />
                                                             {/* {Exchange Rate ||  Transaction Fee} */}
                                                         </div>
                                                     </div>
@@ -145,8 +216,8 @@ function UserSendMoney() {
                                                         <label>Receiver Amount</label>
                                                         <div className="join-field">
                                                             <input type="email"
-                                                                name="receiver_email" placeholder="example@example.com" 
-                                                                />
+                                                                name="receiver_email" placeholder="example@example.com"
+                                                            />
                                                             {/* {receiver_Amount} */}
                                                         </div>
                                                     </div>
@@ -154,24 +225,24 @@ function UserSendMoney() {
                                                     <button type="submit"
                                                         className="btn btn-block btn-filled form-btn">
                                                         <span className="bh"></span> <span>Continue Transaction
-                                                                            <i className="fas fa-arrow-right"></i></span>
+                                                            <i className="fas fa-arrow-right"></i></span>
                                                     </button>
                                                     <span className="accept-terms">By clicking continue, i am agree
-                                                                    with <a href="#">Terms &amp; Policy</a></span>
+                                                        with <a href="#">Terms &amp; Policy</a></span>
                                                 </form>
                                             </div>
 
 
-                                            <div id="receive-money"   className="tab-pane fade">
-                                                <form  onSubmit={handleReceiveMoney}>
+                                            <div id="receive-money" className="tab-pane fade">
+                                                <form onSubmit={handleReceiveMoney}>
                                                     <input type="hidden" name="_token" value="nlBBtpl2Snl74zqDLdNWMnEPZQ9n8a8YjrflGnuY" />                                                                <div className="form-field">
                                                         <label>send amount XOF</label>
                                                         <div className="join-field">
                                                             <input type="text" id="amount" required
                                                                 value="" min="100"
                                                                 max="500000" name="amount"
-                                                                onChange={(e)=>{setAmount(e.target.value)}}
-                                                                 placeholder="1000" />
+                                                                onChange={(e) => { setAmount(e.target.value) }}
+                                                                placeholder="1000" />
                                                             <div className="curr-select">
                                                                 <span className="selected"><img
                                                                     src="http://masizatech.com/assets/fend/images/flags/benin.png"
@@ -183,9 +254,9 @@ function UserSendMoney() {
                                                     <div className="form-field">
                                                         <label for="rcv_country">Receiver Bank</label>
                                                         <select id="rcv_country"
-                                                         required name="bank_code"
-                                                         onChange={(e)=>{setBank_code(e.target.value)}}
-                                                         defaultValue={bank_code}                           >
+                                                            required name="bank_code"
+                                                            onChange={(e) => { setBank_code(e.target.value) }}
+                                                            defaultValue={bank_code}                           >
                                                             <option value="1">Select Bank</option>
                                                             <option value="044">
                                                                 Access Bank</option>
@@ -581,9 +652,9 @@ function UserSendMoney() {
                                                         <div className="join-field">
                                                             <input type="text" required
                                                                 value=""
-                                                                name="account_number" 
+                                                                name="account_number"
                                                                 placeholder=""
-                                                                onChange={(e)=>{setAccount_number(e.target.value)}} />
+                                                                onChange={(e) => { setAccount_number(e.target.value) }} />
                                                         </div>
                                                     </div>
 
@@ -592,8 +663,8 @@ function UserSendMoney() {
                                                         <div className="join-field">
                                                             <input type="text" required
                                                                 value="" name="purpose"
-                                                                placeholder="" 
-                                                                onChange={(e)=>{setPurpose(e.target.value)}}/>
+                                                                placeholder=""
+                                                                onChange={(e) => { setPurpose(e.target.value) }} />
                                                         </div>
                                                     </div>
 
@@ -602,17 +673,17 @@ function UserSendMoney() {
                                                         <div className="join-field">
                                                             <input type="email" value=""
                                                                 name="email" placeholder=""
-                                                                onChange={(e)=>{setEmail(e.target.value)}} />
+                                                                onChange={(e) => { setEmail(e.target.value) }} />
                                                         </div>
                                                     </div>
 
                                                     <button type="submit"
                                                         className="btn btn-block btn-filled form-btn">
                                                         <span className="bh"></span> <span>Continue Transaction
-                                                                            <i className="fas fa-arrow-right"></i></span>
+                                                            <i className="fas fa-arrow-right"></i></span>
                                                     </button>
                                                     <span className="accept-terms">By clicking continue, i am agree
-                                                                    with <a href="#">Terms &amp; Policy</a></span>
+                                                        with <a href="#">Terms &amp; Policy</a></span>
                                                 </form>
 
                                             </div>
@@ -625,95 +696,13 @@ function UserSendMoney() {
                 </div>
             </div>
 
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade " id="pills-profile" role="tabpanel"
-                    aria-labelledby="pills-profile-tab">
-                    <form method="post" class="form bg-offwhite py-4"
-                        action="https://checkout.flutterwave.com/v3/hosted/pay">
-                        <div class="text-center">
-                            <h3>You are sending money to <b>(MTN
-                            22997854095)</b></h3>
-                            <h4>Recipient Amount: 1006 XOF</h4>
-                            <p>Gift</p>
-                            <a href="http://masizatech.com/account/payment/details" class="pbtn btn-link"
-                                data-id="chnage-pay-method">Edit Payment</a>
-                        </div>
-                        <br />
-                        <p class="text-muted text-center">The current exchange rate is <b>1 XOF =
-                        0.895 NGN</b></p>
-                        <hr />
-                        <br />
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="text-left"><b>QOS Transactions fees </b></p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text-right">
-                                    <span
-                                        class="bg-success free-charge">NGN100</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="text-left"><b>Send Amount</b></p>
-                            </div>
-                            <div class="col-md-6">
-                                <span class="float-right">900 NGN</span>
-                            </div>
-                        </div>
-                        <p class="text-center">For more information, please read our <a href="#">user
-                        agreement.</a></p>
-                        <ul class="pager mt-4">
-                            <li>
-                                <a href="http://masizatech.com/account/payment/details" class="btn btn-default mr-0">
-                                    <span class="bh"></span>
-                                    <i class="fas fa-chevron-left"></i>
-                                    <span>Back</span>
-                                </a>
-                            </li>
 
-                            <input type="hidden" name="_token" value="ngrsJithm1Xmks3nSAFv546YpTCHaQukJHnMhWA1" />
-                            <input type="hidden" name="amount" value="1000" />
-                            <input type="hidden" name="public_key"
-                                value="FLWPUBK-92a7b04ea582365ac79dd3dd01ac4fec-X" />
-                            <input type="hidden" name="customer[email]" value="solidofor@yahoo.com" />
-                            <input type="hidden" name="customer[phone_number]"
-                                value="22991323990" />
-                            <input type="hidden" name="customer[name]" value="Emmanuel Ofor" />
-                            <input type="hidden" name="tx_ref" value="LIMR21UPKUOZCF6SID9N" />
-                            <input type="hidden" name="currency" value="NGN" />
-                            <input type="hidden" name="redirect_url"
-                                value="http://masizatech.com/account/validate/flutterwave" />
-                            <input type="hidden" name="meta[token]" value="LIMR21UPKUOZCF6SID9N" />
-                            <input type="hidden" name="meta[cron_id]"
-                                value="1" />
-                            <input type="hidden" name="meta[user_id]" value="1" />
 
-                            <input type="hidden" name="meta[receiver_msisdn]"
-                                value="22997854095" />
-                            <input type="hidden" name="meta[receiver_email]"
-                                value="" />
-                            <input type="hidden" name="meta[purpose]" value="Gift" />
-                            <input type="hidden" name="meta[charge_fee_amount]"
-                                value="100" />
-                            <input type="hidden" name="meta[original_amount]" value="1000" />
-                            <input type="hidden" name="meta[lang]" value="en." />
-                            <li>
-                                <button type="submit" class="btn btn-default mr-0"
-                                    onclick="return confirm('Are you sure ?')">
-                                    <span class="bh"></span>
-                                    <span>Send Money</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
+           
+          { Boolean(TransfertInfo) && <UserConfirmMoney    TransfertInfo={TransfertInfo}  /> }
 
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
+                    </div>
+
 
 
     )

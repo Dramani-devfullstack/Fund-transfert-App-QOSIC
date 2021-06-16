@@ -10,7 +10,7 @@ import { FaListUl } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import User_Dashboard from './User_Dashboard'
 import Account from './Account'
-import SendMoney from './UserSendMoney';
+import UserSendMoney from './UserSendMoney';
 import Transactions from './Transactions';
 import {authentificationService} from '../Services/authentificationService'
 import { useHistory, Redirect } from "react-router-dom";
@@ -23,6 +23,7 @@ function Dashboard() {
   let history = useHistory();
   const isAuth = useAuthContext()
   const user = isAuth.user 
+  console.log(user)
   useEffect(()=>{ 
   console.log(isAuth.user)
       if(user){
@@ -35,12 +36,10 @@ function Dashboard() {
 
   }, [isAuth])
 
-  
   function handleLogout(){
       authentificationService.logout()
       isAuth.setUser(false)
   }
-
 
   return (
     <Fragment>
@@ -87,10 +86,10 @@ function Dashboard() {
                     <li className="divider"></li>
 
                     <li className="nav__dropdown-menu-items">
-                      <button  onClick={handleLogout}><FiLogOut  color="red" />
+                      <a onClick={handleLogout}><FiLogOut  color="red" />
                         <span>
                         Logout
-                        </span></button>
+                        </span></a>
                     </li>
                    
                   </ul>
@@ -127,7 +126,7 @@ function Dashboard() {
               
               {active ==='dashboard' && <User_Dashboard/>}
               {active ==='account' && <Account/>}
-              {active ==='sendmoney' && <SendMoney/>}
+              {active ==='sendmoney' && <UserSendMoney/>}
               {active ==='transactions' && <Transactions/>}
 
             </div>

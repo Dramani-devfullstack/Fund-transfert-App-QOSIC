@@ -161,10 +161,8 @@ export const authentificationService = {
                 
                     return  await fetch(`${url}/user/confirm_NGN_TO_XOF`, requestOptions)
                         .then(response => response.json())
-                        .then(result => console.log(result))
-                        .then(result => { 
-                            return result;
-                        })
+                        .then(result=>result) 
+                        
                         .catch(error => {return error});
                 },
 
@@ -178,9 +176,7 @@ export const authentificationService = {
                     };                
                     return  await fetch(`${url}/user/confirm_XOF_TO_NGN`, requestOptions)
                         .then(response => response.json())
-                        .then(result => { 
-                            return result;
-                        })
+                        .then(result=>result) 
                         .catch(error => {return error});
                 },
 

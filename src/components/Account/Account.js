@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import './Account.css'
 import { authentificationService } from '../Services/authentificationService'
-import { useAuthContext } from '../UserContext'
 import { useEffect } from 'react'
 import { FaCheckCircle, FaSave } from "react-icons/fa";
 
 function Account() {
 
-    const isAuth = useAuthContext()
-    const user = isAuth.user
+    const[user,setUser]= useState('')
+    console.log(user)
     useEffect(() => {
-        authentificationService.getTransacInfo().then(result => console.log(result))
+        authentificationService.getUser().then(result =>setUser(result))
         let li = document.querySelectorAll('.nav-tabs>li>a')
         let content = document.querySelector('#menu1')
         let content2 = document.querySelector('#menu2')
@@ -54,7 +53,7 @@ function Account() {
             accord.removeEventListener()
             close.removeEventListener()
         }
-    }, [isAuth])
+    }, [])
 
     const name = user.name
     const [fullname, setFullname] = useState('')
