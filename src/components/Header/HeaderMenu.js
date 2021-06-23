@@ -21,9 +21,7 @@ function HeaderMenu() {
                         <select>
                             <option href="http://masizatech.com/locale/fr">FR</option>
                             <option  href="http://masizatech.com/locale/en">EN</option>
-                        </select>
-                      {/* <li><a href="http://masizatech.com/locale/fr">FR<span className="flag-icon flag-icon-fr text-dark"></span></a> </li>
-                      <li><a href="http://masizatech.com/locale/en">EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li> */}                    
+                        </select>                  
                 </nav>
             </ul>
         </Fragment>

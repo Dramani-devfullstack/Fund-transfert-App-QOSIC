@@ -18,13 +18,10 @@ export const authentificationService = {
         };
         return  await fetch(`${url}/register`, requestOptions)
             .then(response => response.json())
-            .then(result => {
-                    if(result.status === '000' ){
-                        return result 
-                    } 
-                    console.log(result) 
-            })
-            .catch(error => {return error});
+            .then(result => result)
+            .catch(error => {
+                return error
+        })
     },
 
     login: async function(email, password) {
@@ -36,13 +33,51 @@ export const authentificationService = {
     
         return  await fetch(`${url}/login`, requestOptions)
             .then(response => response.json())
-            .then(result => {
+            .then(result => result
                 // store user details and jwt token in local storage to keep user logged in between page refreshes                       
-                    if(result.status === '000' ){
-                        return result.data 
-                    }     
-            })
-            .catch(error=>console.log(error))
+                )
+            .catch(error => {
+                console.log(error)
+        })
+    },
+
+    resetPassword: async function(email) {
+        const requestOptions = {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify({ 'email': email })
+        };
+    
+        return  await fetch(`${url}/recover/reset-password-token`, requestOptions)
+            .then(response => response.json())
+            .then(result => result                      
+                )
+            .catch(error => {
+                return error
+        })
+    },
+
+
+    setNewPassword : async function(code, email, password, password_confirmation) {
+        const data ={
+            'email':email,
+            'code':code,
+            'password':password,
+            'password_confirmation':password_confirmation
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify(data)
+        };
+        console.log(data)
+        return  await fetch(`${url}/recover/set-new-password
+        `, requestOptions)
+            .then(response => response.json())
+            .then(result => result)
+            .catch(error => {
+                return error
+        })
     },
 
     logout: async function(){
@@ -55,9 +90,7 @@ export const authentificationService = {
         console.log(requestOptions.headers)       
         return await fetch(`${url}/logout`, requestOptions)
             .then(response => response.json())
-            .then(()=>{
-                localStorage.removeItem('currentUser')      
-            })
+            .then(result=>result)
             
     }, 
 
@@ -82,7 +115,7 @@ export const authentificationService = {
                    
             return await fetch(`${url}/user/highlights`, requestOptions)
                 .then(response => response.json())
-                .then(result=>result.data)       
+                .then(result=>result)       
             },
 
             updateProfile : async function(name, fullname, msisdn, address) {
@@ -121,19 +154,22 @@ export const authentificationService = {
                         .catch(error => {return error});
                 },
 
-                getListTransact: async function(){
+                getListTransact: async function(query){
                     const requestOptions = {
                         method: 'GET',
                         headers: {'Content-Type': 'application/json',
-                        "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('currentUser')) },
+                        "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('currentUser')),
+                         },
                        
                     };      
-                    return await fetch(`${url}/user/transactions
+                    console.log(query)
+                    return await fetch(`${url}/user/transactions?query=${query}
                     `, requestOptions)
                         .then(response => response.json())
                         .then(result => { 
                             return result.data
                         })
+                       
                         
                 },
 
@@ -141,13 +177,11 @@ export const authentificationService = {
                     const requestOptions = {
                         method: 'POST',
                         headers: header,
-                        body : {email}
+                        body :JSON.stringify({email}) 
                     };
                     return  await fetch(`${url}/email/resend`, requestOptions)
                         .then(response => response.json())
-                        .then(result => {     
-                            return result              
-                        })
+                        .then(result => result)
                         .catch(error=>console.log(error))
                 },
 
@@ -180,6 +214,45 @@ export const authentificationService = {
                         .catch(error => {return error});
                 },
 
+                getBasicInfo: async function(){
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {'Content-Type': 'application/json',
+                        "Authorization": 'Bearer Let3sr6cwrkG6yXVQUV7csPh9PvbAEdpk5TH7MJdnGd2KFu9' },    
+                    };      
+                    return await fetch(`${url}/base
+
+                    `, requestOptions)
+                        .then(response => response.json())
+                        .then(result => result
+                        )
+                        
+                },
+                
+                validateMomoPayement : async function(amount, purpose,customer_phone_number, customer_email, receiver_bank_code, receiver_name, receiver_email,receiver_bank_account_number, receiver_bank_name) {
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json',
+                        "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('currentUser')) } ,
+                        body: JSON.stringify({     
+                            "original_amount":amount,
+                            "purpose": purpose ,
+                            "customer_phone_number": customer_phone_number ,
+                            "customer_email": customer_email ,
+                            "receiver_bank_code":  receiver_bank_code,
+                            "receiver_name": receiver_name,
+                            "receiver_email": receiver_email ,
+                            "receiver_bank_account_number": receiver_bank_account_number,
+                            "receiver_bank_name": receiver_bank_name
+                        })
+                        
+                    };  
+                    console.log(requestOptions.body)              
+                    return  await fetch(`${url}/user/validate/momopayment`, requestOptions)
+                        .then(response => response.json())
+                        .then(result=>result) 
+                        .catch(error => {return error});
+                },
 
     
 }

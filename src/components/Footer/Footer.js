@@ -6,7 +6,6 @@ function Footer() {
     return (
         <Fragment>
                 <div className="footer">
-    
                 <div className="foo-btm">
                 <div className="container">
                     <div className="row">

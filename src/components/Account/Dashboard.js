@@ -13,37 +13,33 @@ import Account from './Account'
 import UserSendMoney from './UserSendMoney';
 import Transactions from './Transactions';
 import {authentificationService} from '../Services/authentificationService'
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Link, useRouteMatch } from "react-router-dom";
 import {useAuthContext} from '../UserContext'
 
 
 function Dashboard() {
   const [active, setActive] = useState('dashboard')
-
+  const [style, setStyle] = useState(false)
   let history = useHistory();
   const isAuth = useAuthContext()
   const user = isAuth.user 
   console.log(user)
-  useEffect(()=>{ 
-  console.log(isAuth.user)
-      if(user){
-          history.push('/dashboard')
-      }  else {
-       
-          <Redirect to='/login'/>   
-      }
-      authentificationService.getTransacInfo().then(result=>console.log(result))
 
-  }, [isAuth])
+  let {url, path} = useRouteMatch()
+  useEffect(()=>{ 
+      authentificationService.getTransacInfo().then(result=>console.log(result))
+  }, [user])
 
   function handleLogout(){
-      authentificationService.logout()
-      isAuth.setUser(false)
+      authentificationService.logout().
+      then(result=>{if(result.status==='000'){
+        localStorage.clear('currentUser')
+        history.push('/login')
+      }})
   }
 
   return (
     <Fragment>
-
       <div className="header03">
         <div className="header-main">
           <div className="container d-flex align-items-center">
@@ -51,11 +47,11 @@ function Dashboard() {
               <img src="http://masizatech.com/assets/logo.png" alt="" />
             </a>
             <nav className="primary-menu ml-auto">
-              <a id="mobile-menu-toggler" href="#"><FaBars/></a>
-              <ul>
-                <li className="current-menu-item"><a href="http://masizatech.com">Home</a></li>
-                <li><a href="http://masizatech.com/locale/fr">FR<span className="flag-icon flag-icon-fr text-dark"></span></a> </li>
-                <li><a href="http://masizatech.com/locale/en">EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li>
+              <a onClick={()=>setStyle(!style)} id="mobile-menu-toggler" href="#"><FaBars/></a>
+              <ul  style={style ? {display:'block'} : null }  >
+                <li className="current-menu-ittogglerem"><a href="http://masizatech.com">Home</a></li>
+                <li><a >FR<span className="flag-icon flag-icon-fr text-dark"></span></a> </li>
+                <li><a >EN<span className="flag-icon flag-icon-us text-dark"></span></a> </li>
 
                 <li className="has-menu-child pro-menu-drop">
                   <a href="http://masizatech.com/account">
@@ -112,10 +108,26 @@ function Dashboard() {
               <div className="widget admin-widget p-0">
                 <div className="Profile-menu">
                   <ul className="nav secondary-nav">
-                    <li onClick={()=>setActive('dashboard')} className={ active ==='dashboard' ? "active" : "nav-intem"}><a className="nav-link" ><FaTachometerAlt size='1.3em' /> Dashboard</a></li>
-                    <li  onClick={()=>setActive('account')} className={ active ==='account' ? "active" : "nav-intem"}><a className="nav-link"  ><FaAutoprefixer size='1.3em'/> Account </a></li>
-                    <li onClick={()=>setActive('sendmoney')} className={ active ==='sendmoney' ? "active" : "nav-intem"}><a className="nav-link" ><FaPaperPlane size='1.2em'/>  Send Money</a></li>
-                    <li onClick={()=>setActive('transactions')} className={ active ==='transactions' ? "active" : "nav-intem"}><a className="nav-link" ><FaListUl size='1.2em'/>  Transactions</a></li>
+                    {/* <li  onClick={()=>setActive('dashboard')} className={ active ==='dashboard' ? "active" : "nav-intem"}><a style={{cursor:'pointer'}} className="nav-link" ><FaTachometerAlt size='1.3em' /> Dashboard</a></li>
+                    <li  onClick={()=>setActive('account')} className={ active ==='account' ? "active" : "nav-intem"}><a style={{cursor:'pointer'}} className="nav-link"  ><FaAutoprefixer size='1.3em'/> Account </a></li>
+                    <li onClick={()=>setActive('sendmoney')} className={ active ==='sendmoney' ? "active" : "nav-intem"}>  <a style={{cursor:'pointer'}} className="nav-link" ><FaPaperPlane size='1.2em'/>  Send Money</a></li>
+                    <li onClick={()=>setActive('transactions')} className={ active ==='transactions' ? "active" : "nav-intem"}>  <a style={{cursor:'pointer'}} className="nav-link" ><FaListUl size='1.2em'/>  Transactions</a></li> */}
+
+
+                    <li onClick={()=>setActive('dashboard')} className={ active ==='dashboard' ? "active" : "nav-intem"}>
+                      <Link to={`${url}/userdashboard`} >
+                       <a style={{cursor:'pointer'}} className="nav-link" ><FaTachometerAlt size='1.3em' /> Dashboard</a>
+                      </Link> 
+                    </li>
+                    <li  onClick={()=>setActive('account')} className={ active ==='account' ? "active" : "nav-intem"}>
+                      <Link to={`${url}/account`}  >
+                          <a style={{cursor:'pointer'}} className="nav-link"  ><FaAutoprefixer size='1.3em'/> Account </a>
+                      </Link>
+                     
+                    </li>
+                    <li onClick={()=>setActive('sendmoney')} className={ active ==='sendmoney' ? "active" : "nav-intem"}>  <a style={{cursor:'pointer'}} className="nav-link" ><FaPaperPlane size='1.2em'/>  Send Money</a></li>
+                    <li onClick={()=>setActive('transactions')} className={ active ==='transactions' ? "active" : "nav-intem"}>  <a style={{cursor:'pointer'}} className="nav-link" ><FaListUl size='1.2em'/>  Transactions</a></li>
+
                   </ul>
                   
                 </div>

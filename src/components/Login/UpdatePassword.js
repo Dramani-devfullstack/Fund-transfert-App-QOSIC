@@ -1,66 +1,49 @@
-import React, { Fragment, useState,useEffect } from 'react'
+import React,{useState} from 'react'
 import { authentificationService } from '../Services/authentificationService'
-import {useAuthContext} from '../UserContext'
-import { useHistory, Redirect } from "react-router-dom";
+
+function UpdatePassword() {
 
 
-
-function Register() {
-
-    
-    const [name, setName]=useState('')
     const [email, setEmail]=useState('')
+    const [code, setCode]=useState('')
     const [password, setPassword]=useState('')
     const [password_confirmation, setPasswordConfirm]=useState('')
-    const [error, setError]=useState('')
-    const isAuth = useAuthContext()
-    const history = useHistory()
-    let danger = error.message
-    
-    useEffect(()=>{ 
-        const loggedIn = isAuth.user 
-        console.log(loggedIn)
-        console.log(isAuth)
-            if(loggedIn){
-                history.push('/mailactivation')
-            }  else {
-                <Redirect to='/register'/>
-            }
+    const [sucess, setSucess] = useState(false)
+    const [error, setError] = useState(false)
 
-            setTimeout(() => {
-                setError(false);
-            }, 10000);
-        })
-
-    const  submit= async(e)=>{   
+    const handleSetNewPassword  =(e)=>{
         e.preventDefault()
-        authentificationService.register(name,email,password,password_confirmation)
-            .then(result=>{
-                if(result.status === '000' ){
-                    isAuth.setUser(result)  
-                }
-                if(result.status ==='Error'){ 
-                   setError(result)      
-            }  })
-                
+        authentificationService.setNewPassword(code, email, password, password_confirmation)
+        .then(result => { 
+            console.log(result)
+            if(result.status === '000'){
+                setSucess(true)
+            }
+            if(result.status === 'Error'){
+                setError(true)
+            }
+        })
     }
+    console.log(sucess)
+    console.log(error)
+
 
     return (
-        <Fragment>
+        <div>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <div className="card-header">Register</div>
-                            <div className=' text-center text-danger' >
-                                        <p style={{fontSize:'16px'}} >{danger}</p> 
-                                    </div>
+                            <div className="card-header">Set New Password(Update Password)</div>
+                           {  Boolean(sucess) && <div class="alert alert-success" role="alert">
+                             Your password have been successfully updated
+                            </div>}
                             <div className="card-body">
-                                <form onSubmit={submit}>
+                                <form onSubmit={handleSetNewPassword}>
                                     <div className="m-group row">
-                                        <label htmlFor="name" className="col-md-4 col-form-label text-md-right">Name</label>
+                                        <label htmlFor="name" className="col-md-4 col-form-label text-md-right">Code</label>
                                         <div className="col-md-6">
-                                            <input id="name" type="text" className="form-control " name="name" required  autofocus onChange={e=>setName(e.target.value)} />
+                                            <input id="name" type="text" className="form-control " name="code" required  autofocus onChange={e=>setCode(e.target.value)} />
                                         </div>
                                     </div>
 
@@ -96,7 +79,7 @@ function Register() {
                                     <div className="form-group row mb-0">
                                         <div className="col-md-6 offset-md-4">
                                             <button type="submit" className="btn btn-primary">
-                                                Register
+                                                Set New Password
                                             </button>
                                         </div>
                                     </div>
@@ -107,9 +90,10 @@ function Register() {
                     </div>
                 </div>
             </div>
-            
-        </Fragment>
+          
+        </div>
     )
 }
 
-export default Register
+export default UpdatePassword
+

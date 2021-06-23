@@ -1,7 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { authentificationService } from '../Services/authentificationService'
 import './MoneyTransfert.css'
 
 function ReceiveMoney() {
+
+  const [res, setRes] = useState(false)
+  const [input, setInput] = useState('')
+  let data = res.QOS_BUYAMOUNT
+  let receive = data *input
+ 
+  useEffect(()=>{
+    authentificationService.getBasicInfo().then(result=>{if(result.status === '000'){
+      setRes(result.data.currency[0])
+    }}
+  )
+  },[setRes])
+
+
     return (
         <div>
 
@@ -10,7 +25,7 @@ function ReceiveMoney() {
                               <input type="hidden" name="_token" value="KhvMf7KybMh0CLHYuwJmQMngX5BJgaDYEbfFjYtD"/>              <div className="form-field">
                                 <label>send amount XOF</label>
                                 <div className="join-field">
-                                  <input type="text" id="amount" required value="" min="100" max="500000" name="amount" placeholder="1000"/>
+                                  <input type="text" id="amount" required min="100" max="500000" name="amount" onChange={(e)=>{setInput(e.target.value)}} placeholder="1000"/>
                                   <div className="curr-select">
                                     <span className="selected"><img src="http://masizatech.com/assets/fend/images/flags/benin.png" alt=""/>XOF </span>
                                   </div>
@@ -65,26 +80,18 @@ function ReceiveMoney() {
                               </div>
           
                               <div className="form-field">
-                                <label>Account Number</label>
+                                <label>Rate Exchange  ({ `1NGN =  ${data}  XOF`})  </label>
                                 <div className="join-field">
-                                  <input type="text" required value="" name="account_number"  placeholder=""/>
+                                  <input type="text" required  value={ `1NGN =  ${data}  XOF`}  name="account_number"  placeholder=""/>
                                 </div>
                               </div>
           
                               <div className="form-field">
-                                <label>Purpose</label>
+                                <label>Receiver Amount </label>
                                 <div className="join-field">
-                                  <input type="text" required  value="" name="purpose" placeholder=""/>
+                                  <input type="text" required  value={receive}  name="purpose" placeholder=""/>
                                 </div>
                               </div>
-          
-                              <div className="form-field">
-                                <label>Receiver Email(Optional)</label>
-                                <div className="join-field">
-                                  <input type="email"  value="" name="email" placeholder=""/>
-                                </div>
-                              </div>
-          
                               <a className="btn btn-secondary btn-block" href="http://masizatech.com/login">Login</a> 
                               <a className="btn btn-primary btn-block" href="http://masizatech.com/register">Register</a>
                               <span className="accept-terms">By clicking continue, i am agree with <a href="#">Terms &amp; Policy</a></span>

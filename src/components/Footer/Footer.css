@@ -4,7 +4,8 @@
     background-repeat: no-repeat;
     background-image: url("http://masizatech.com/assets/fend/images/footer-bg.png");
     background-color: #123d88;
-    position: relative;
+    position: absolute;
+    bottom: 0;
   }
   
   .footer .foo-top {
