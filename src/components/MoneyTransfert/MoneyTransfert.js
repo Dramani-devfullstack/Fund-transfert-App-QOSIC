@@ -20,7 +20,7 @@ function MoneyTransfert(){
                       <div className="ban-content">
                         <h1>Send Money between, Nigeria and Benin Republic</h1>
                         <p>Simpler, Safer and Low-cost online money transfers<br/> between Naira and XOF</p>
-                        <a href="https://vimeo.com/191947042" className="btn btn-outline btn-round icon-left" data-fancybox>
+                        <a  className="btn btn-outline btn-round icon-left" data-fancybox>
                           <span className="bh"></span> <span><FaPlay id="faPlay"/> Learn more</span>
                         </a>
                       </div>

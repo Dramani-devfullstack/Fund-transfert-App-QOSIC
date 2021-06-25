@@ -5,24 +5,51 @@ import './Account.css'
 import { authentificationService } from '../Services/authentificationService'
 import UserConfirmMoney from './UserConfirmMoney'
 import ReceiveUserMoney from './ReceiveUserMoney'
+import Validation_url from './Validation_url'
+import {
+    BrowserRouter as Router,
+    Link,
+    useLocation
+  } from "react-router-dom"
 
 
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
 function UserSendMoney() {
-    
+
+ 
+
     const [TransfertInfo, setTransfertInfo] = useState(false)
     const [ReceiveInfo, setRecieveInfo] = useState(false)
+    const [verification, setVerification] = useState(false)
     const [initial, setInitial]=useState(1)
+
+    let query = useQuery()
+   
+    console.log(query.get('status'))
+    
+  
     console.log(TransfertInfo)
-    console.log(ReceiveInfo)
+    // console.log(ReceiveInfo)
+    console.log(verification)
    
     useEffect(() => {
+
+        if(query.get('status') !== null){
+            setVerification(true)   
+            setInitial(4) 
+        }
+
         let confirmBtn = document.querySelector('#confirmBtn')
         let detailBtn = document.querySelector('#detailBtn')
         let sucessBtn = document.querySelector('#sucessBtn')
         let pills_profile = document.querySelector('#pills-profile')
         let pills_profile2 = document.querySelector('#pills-profile2') 
         let pills_profile3 = document.querySelector('#pills-profile3')
+        let pills_profile4 = document.querySelector('#pills-profile4')
            
         if(initial === 2){           
             confirmBtn.classList.add('active')
@@ -60,6 +87,25 @@ function UserSendMoney() {
                 pills_profile3.classList.add('active')
               } )
         }   
+
+        if(initial === 4){           
+            sucessBtn.classList.add('active')
+            detailBtn.classList.remove('active')
+            pills_profile.classList.remove('show')
+            pills_profile.classList.remove('active')
+            pills_profile4.classList.add('show')
+            pills_profile4.classList.add('active')
+
+            sucessBtn.addEventListener('click', () => {
+                confirmBtn.classList.add('active')
+                detailBtn.classList.remove('active')
+                pills_profile.classList.remove('show')
+                pills_profile.classList.remove('active')
+                pills_profile4.classList.add('show')
+                pills_profile4.classList.add('active')
+              } )
+        }
+
 
         let li = document.querySelectorAll('.nav-tabs>li>a')
         let sendMoney = document.querySelector('#send-money')
@@ -669,6 +715,7 @@ function UserSendMoney() {
            
           { Boolean(TransfertInfo) && <UserConfirmMoney    TransfertInfo={TransfertInfo}/> }
           { Boolean(ReceiveInfo) &&  <ReceiveUserMoney   ReceiveInfo={ReceiveInfo}/>}
+          { Boolean(verification) && <Validation_url/>}
          </div>
     )
 }

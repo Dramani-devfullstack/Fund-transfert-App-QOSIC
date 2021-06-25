@@ -37,12 +37,12 @@ function ResetPassword() {
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">Reset Password</div>
-                            <div class="alert alert-success" role="alert">
-                            { Boolean(sucess) && <p>We have emailed your password reset link!</p> }  
-                            </div>
-                            <div class="alert alert-danger" role="alert">
-                            { Boolean(error) && <p>There is an error, please try again</p> }  
-                            </div>
+                         {  Boolean(sucess) && <div class="alert alert-success" role="alert">
+                            <p>We have emailed your password reset link!</p>  
+                            </div>}
+                           { Boolean(error) && <div class="alert alert-danger" role="alert">
+                             <p>There is an error, please try again</p>   
+                            </div>}
                             <div class="card-body">
                                 <form onSubmit={handleResetPassword}>
                                     <div class="form-group row">

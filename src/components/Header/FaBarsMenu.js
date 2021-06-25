@@ -14,19 +14,19 @@ function FaBarsMenu() {
                         </Link>
 
                         <Link to='/login'>
-                                <li><a href="http://masizatech.com/locale/en">Login</a> </li>
+                                <li><a >Login</a> </li>
                         </Link>
                             
                         <Link to='/register'>
-                                <li><a href="http://masizatech.com/locale/en">Register</a> </li>
+                                <li><a >Register</a> </li>
                         </Link>
                                 
-                        <Link to='/'>
-                                <li><a href="http://masizatech.com/locale/fr">FR</a> </li>
-                        </Link>
+                        {/* <Link to='/'>
+                                <li><a>FR</a> </li>
+                        </Link> */}
                                 
                         <Link to='/'>
-                                <li><a href="http://masizatech.com/locale/en">EN</a> </li>
+                                <li><a >EN</a> </li>
                         </Link>         
                 </ul>
               </nav>

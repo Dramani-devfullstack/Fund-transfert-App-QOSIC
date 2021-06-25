@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Account.css'
 import { authentificationService } from '../Services/authentificationService'
 import { useEffect } from 'react'
-import { FaCheckCircle, FaSave } from "react-icons/fa";
+import { FaCheckCircle, FaSave,FaEdit } from "react-icons/fa";
 
 function Account() {
 
@@ -78,7 +78,7 @@ function Account() {
     return (
         <div className="profile-area">
             <h3 className="admin-heading bg-offwhite">
-                <a className="btn-link pbtn " data-id="edit-personal-details"><i className="fas fa-edit mr-1"></i>Update</a>
+                <a className="btn-link pbtn" style={{cursor:'pointer'}}><FaEdit/>Update</a>
                 <p>Personal Profile</p>
                 <span>Your Personal information</span>
             </h3>

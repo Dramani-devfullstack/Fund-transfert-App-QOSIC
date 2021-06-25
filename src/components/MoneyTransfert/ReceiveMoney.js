@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { authentificationService } from '../Services/authentificationService'
+import { Link } from 'react-router-dom'
 import './MoneyTransfert.css'
 
 function ReceiveMoney() {
@@ -21,8 +22,8 @@ function ReceiveMoney() {
         <div>
 
 <div id="receive-money" className="tab-pane fade in active show">
-                            <form  method="post" action="http://masizatech.com/account/confirm/XOF_TO_NGN">
-                              <input type="hidden" name="_token" value="KhvMf7KybMh0CLHYuwJmQMngX5BJgaDYEbfFjYtD"/>              <div className="form-field">
+                            <form  >
+                               <div className="form-field">
                                 <label>send amount XOF</label>
                                 <div className="join-field">
                                   <input type="text" id="amount" required min="100" max="500000" name="amount" onChange={(e)=>{setInput(e.target.value)}} placeholder="1000"/>
@@ -92,8 +93,15 @@ function ReceiveMoney() {
                                   <input type="text" required  value={receive}  name="purpose" placeholder=""/>
                                 </div>
                               </div>
-                              <a className="btn btn-secondary btn-block" href="http://masizatech.com/login">Login</a> 
-                              <a className="btn btn-primary btn-block" href="http://masizatech.com/register">Register</a>
+
+                              <Link to='/login' >
+                              <a className="btn btn-secondary btn-block" >Login</a> 
+                              </Link>
+                              
+                              <Link to='/register' >
+                              <a className="btn btn-primary btn-block" >Register</a>
+                              </Link>
+                             
                               <span className="accept-terms">By clicking continue, i am agree with <a href="#">Terms &amp; Policy</a></span>
                             </form>          
                           </div>

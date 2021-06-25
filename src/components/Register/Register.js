@@ -12,6 +12,7 @@ function Register() {
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
     const [password_confirmation, setPasswordConfirm]=useState('')
+    const [response, setResponse]=useState('')
     const [error, setError]=useState('')
     const isAuth = useAuthContext()
     const history = useHistory()
@@ -21,7 +22,7 @@ function Register() {
         const loggedIn = isAuth.user 
         console.log(loggedIn)
         console.log(isAuth)
-            if(loggedIn){
+            if(Boolean(response)){
                 history.push('/mailactivation')
             }  else {
                 <Redirect to='/register'/>
@@ -37,7 +38,7 @@ function Register() {
         authentificationService.register(name,email,password,password_confirmation)
             .then(result=>{
                 if(result.status === '000' ){
-                    isAuth.setUser(result)  
+                    setResponse(result)  
                 }
                 if(result.status ==='Error'){ 
                    setError(result)      

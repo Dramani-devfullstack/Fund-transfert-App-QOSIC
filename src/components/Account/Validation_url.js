@@ -29,7 +29,7 @@ function Validation_url() {
       .then(response => response.json())
       .then(result => {
         if(result.status === '000'){
-          setResponse(result)
+          setResponse(true)
         }
         if(result.status === 'error'){
           setError(error)
@@ -38,21 +38,18 @@ function Validation_url() {
   }, [setResponse])
 
   let query = useQuery()
-  console.log(query.get('status'))
-  console.log(query.get('tx_ref'))
-  console.log(query.get('transaction_id'))
+
   let status = query.get('status')
   return (
-    <Fragment>
-      <div class="container">
-       <div class="popup_box">
-      <FcOk  size='30px'/>
-      <h1>{status}Transaction </h1>
-      <label></label> 
-    </div>
-    </div>
-      
-    </Fragment>
+        <div className="tab-pane fade " id="pills-profile4" role="tabpanel"
+            aria-labelledby="pills-profile-tab">
+            <div class="popup_box">
+                <FcOk size='30px' />
+                <h1> Sucessful Transaction </h1>
+                <label></label>
+            </div> 
+            </div> 
+   
   )
 }
 

@@ -16,7 +16,7 @@ function User_Dashboard() {
           setError(error)
         }
       } )
-  }, [setUserInfo])
+  }, [setUserInfo, setError])
   return (
 
     <div class="profile-content">
