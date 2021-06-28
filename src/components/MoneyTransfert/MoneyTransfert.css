@@ -404,7 +404,7 @@ section {
   position: absolute;
   left: 50%;
   top: 50%;
-  background-image: url();
+  /* background-image: url(); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1359,9 +1359,9 @@ section {
 
 
 
-.banner.v2 {
+/* .banner.v2 {
   background-image: url("");
-}
+} */
 
 .banner.v2:after {
   background-color: #fff;
@@ -1386,17 +1386,17 @@ section {
   background-color: transparent !important;
 }
 
-.banner.v3 {
+/* .banner.v3 {
   background-image: url();
-}
+} */
 
-.banner.v5 {
+/* .banner.v5 {
   background-image: url("");
-}
+} */
 
-.banner.v6 {
+/* .banner.v6 {
   background-image: url("");
-}
+} */
 
 .banner.v7 {
   background-image: url("http://masizatech.com/assets/fend/images/banner/10.jpg");
@@ -1538,7 +1538,7 @@ section {
  * Features section
  */
 .features {
-  background-image: url("");
+  /* background-image: url(""); */
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -1596,7 +1596,7 @@ section {
 }
 
 .features-v2 {
-  background-image: url();
+  /* background-image: url(); */
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -2539,7 +2539,7 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url();
+  /* background-image: url(); */
   background-repeat: no-repeat;
 }
 
@@ -2676,7 +2676,7 @@ section {
  * Video section
  */
 .video {
-  background-image: url("");
+  /* background-image: url(""); */
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -2700,13 +2700,13 @@ section {
   margin: 0 auto;
 }
 
-.video.v2 {
+/* .video.v2 {
   background-image: url("");
 }
 
 .video.v3 {
   background-image: url("");
-}
+} */
 
 @media screen and (max-width: 767px) {
   .video-post .video-box-round {
@@ -3309,7 +3309,7 @@ section {
  * Fun facts section
  */
 .funfacts {
-  background-image: url();
+  /* background-image: url(); */
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -4448,7 +4448,7 @@ section {
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  background-image: url("");
+  /* background-image: url(""); */
   background-attachment: fixed;
   padding: 11% 0;
 }

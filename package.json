@@ -1,5 +1,6 @@
 {
-  "name": "fund-transfert-app",
+  "name": "sendime",
+  "homepage": "https://sendime.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { authentificationService } from '../Services/authentificationService'
 import { Link } from 'react-router-dom'
+import Loading from '../Loading/Loading';
 import './MoneyTransfert.css'
 
 function ReceiveMoney() {
 
   const [res, setRes] = useState(false)
+  
   const [input, setInput] = useState('')
+  const [isLoading, setLoading] = useState(false)
   let data = res.QOS_BUYAMOUNT
   let receive = data *input
  
   useEffect(()=>{
+    setLoading(true)
     authentificationService.getBasicInfo().then(result=>{if(result.status === '000'){
+      setLoading(false)
       setRes(result.data.currency[0])
     }}
   )
   },[setRes])
 
 
-    return (
+    return isLoading ? <Loading/> :  (
         <div>
 
 <div id="receive-money" className="tab-pane fade in active show">
@@ -94,15 +99,15 @@ function ReceiveMoney() {
                                 </div>
                               </div>
 
-                              <Link to='/login' >
+                              <Link style={{margin:'5px', textDecoration:'none'}} to='/login' >
                               <a className="btn btn-secondary btn-block" >Login</a> 
                               </Link>
                               
-                              <Link to='/register' >
+                              <Link style={{textDecoration:'none'}} to='/register' >
                               <a className="btn btn-primary btn-block" >Register</a>
                               </Link>
                              
-                              <span className="accept-terms">By clicking continue, i am agree with <a href="#">Terms &amp; Policy</a></span>
+                              <span style={{margin:'10px'}} className="accept-terms">By clicking continue, i am agree with <a href="#">Terms &amp; Policy</a></span>
                             </form>          
                           </div>
             

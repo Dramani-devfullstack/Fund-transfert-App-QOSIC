@@ -20,9 +20,9 @@ function MoneyTransfert(){
                       <div className="ban-content">
                         <h1>Send Money between, Nigeria and Benin Republic</h1>
                         <p>Simpler, Safer and Low-cost online money transfers<br/> between Naira and XOF</p>
-                        <a  className="btn btn-outline btn-round icon-left" data-fancybox>
+                        {/* <a  className="btn btn-outline btn-round icon-left" data-fancybox>
                           <span className="bh"></span> <span><FaPlay id="faPlay"/> Learn more</span>
-                        </a>
+                        </a> */}
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-12">

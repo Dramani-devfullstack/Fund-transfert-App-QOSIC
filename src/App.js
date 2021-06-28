@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Header from './components/Header/Header'
 import Home from './components/Home'
-import Footer from './components/Footer/Footer'
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import ConditionTerms from './components/ConditionTerms/ConditionTerms';
-import PrivateRoute from './PrivateRoute'
-import {useAuthContext} from './components/UserContext'
-import Dashboard from './components/Account/Dashboard';
 import Mailactivation from './components/Register/Mailactivation';
 import Validation_url from './components/Account/Validation_url';
 import ResetPassword from './components/Login/ResetPassword';
@@ -20,16 +15,15 @@ import UserSendMoney from './components/Account/UserSendMoney';
 import StarterLayout from './components/Layout/StarterLayout';
 import UserLayout from './components/Layout/UserLayout';
 import Transactions from './components/Account/Transactions';
-import Loading from './components/Loading/Loading';
+import NotFound from './components/NotFound'
+
 
 
 
 function App () {
 
     
-  
-  
-    const isAuth = useAuthContext()
+
     
     return (
       
@@ -42,6 +36,7 @@ function App () {
               {/* <Route path='/logintest' exact render={()=> <StarterLayout  children={<LoginTest/>}  /> } /> */}
               <Route path='/register' exact render={()=> <StarterLayout  children={<Register/>}/> }/>
               <Route path='/login' exact render={()=> <StarterLayout  children={<Login/>}/> }/>
+              <Route   component={NotFound}/> }/>
               <Route path='/resetpassword' exact render={()=> <StarterLayout  children={<ResetPassword/>}/> }/>
               <Route path='/updatePassword' exact render={()=> <StarterLayout  children={<UpdatePassword/>}/> }/>
               {/* <Route path='/resetpassword' exact component={ResetPassword} />  

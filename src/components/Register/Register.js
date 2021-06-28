@@ -2,6 +2,7 @@ import React, { Fragment, useState,useEffect } from 'react'
 import { authentificationService } from '../Services/authentificationService'
 import {useAuthContext} from '../UserContext'
 import { useHistory, Redirect } from "react-router-dom";
+import Loading from '../Loading/Loading';
 
 
 
@@ -14,6 +15,7 @@ function Register() {
     const [password_confirmation, setPasswordConfirm]=useState('')
     const [response, setResponse]=useState('')
     const [error, setError]=useState('')
+    const [isLoading, setLoading] = useState(false)
     const isAuth = useAuthContext()
     const history = useHistory()
     let danger = error.message
@@ -35,9 +37,11 @@ function Register() {
 
     const  submit= async(e)=>{   
         e.preventDefault()
+        setLoading(true)
         authentificationService.register(name,email,password,password_confirmation)
             .then(result=>{
                 if(result.status === '000' ){
+                    setLoading(false)
                     setResponse(result)  
                 }
                 if(result.status ==='Error'){ 
