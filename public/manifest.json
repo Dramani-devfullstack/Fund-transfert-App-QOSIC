@@ -9,7 +9,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "192x192trans.png",
+      "src":"192x192trans.png",
       "type": "image/png",
       "sizes": "192x192"
     },
