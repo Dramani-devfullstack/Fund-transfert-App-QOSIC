@@ -36,7 +36,6 @@ function App () {
               {/* <Route path='/logintest' exact render={()=> <StarterLayout  children={<LoginTest/>}  /> } /> */}
               <Route path='/register' exact render={()=> <StarterLayout  children={<Register/>}/> }/>
               <Route path='/login' exact render={()=> <StarterLayout  children={<Login/>}/> }/>
-              <Route   component={NotFound}/> }/>
               <Route path='/resetpassword' exact render={()=> <StarterLayout  children={<ResetPassword/>}/> }/>
               <Route path='/updatePassword' exact render={()=> <StarterLayout  children={<UpdatePassword/>}/> }/>
               {/* <Route path='/resetpassword' exact component={ResetPassword} />  
