@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { authentificationService } from '../Services/authentificationService'
+// import Loading from '../Loading/Loading'
 import './Account.css'
 
 function User_Dashboard() {
   const [userInfo, setUserInfo] = useState('')
   const [error, setError] = useState('')
+  // const [isLoading, setLoading] = useState(true)
   console.log(userInfo)
   useEffect(() => {
     authentificationService.getTransacInfo()
       .then(user => {
         if(user.status === '000'){
+          // setLoading(false)
           setUserInfo(user.data)
         }
         if(user.status ==='Error'){
@@ -17,7 +20,7 @@ function User_Dashboard() {
         }
       } )
   }, [setUserInfo, setError])
-  return (
+    return (
 
     <div class="profile-content">
 

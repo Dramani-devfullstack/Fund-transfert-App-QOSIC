@@ -18,12 +18,6 @@ function Login() {
 
 
     useEffect(() => {
-        // if (loggedIn) {
-        //     history.push('/dashboard')
-        // } else {
-        //     <Redirect to='/login' />
-        // }
-
         setTimeout(() => {
             setError(false);
         }, 10000);
@@ -55,28 +49,31 @@ function Login() {
                     <div className="row justify-content-center">
                         <div className="col-md-8">
                             <div className="card">
-                                <div className="card-header">Login</div>
+                            <div className="card-header py-1 text-center"> <h5>Login</h5> </div>
                                 <div className=' text-center text-danger' >
                                     <p style={{ fontSize: '16px' }} >{danger}</p>
                                 </div>
-                                <div className="card-body">
+                                <div className="mx-auto col-md-12">
                                     <form onSubmit={loginHandleSubmit}>
-                                        <input type="hidden" name="_token" value="C76hkP1YyHg3mQujS7ECAaZ6EJGpT4nGgVuB9alm" />
-                                        <div className="form-group row">
-                                            <label htmlFor="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                                            <div className="col-md-6">
+                                        <div className="form-group col-md-10 mx-auto">
+                                            <label htmlFor="email" className="col-md-12 mx-auto d-block col-form-label">Email</label>
+                                            <div className="col-md-12 mx-auto">
                                                 <input id="email" type="email" className="form-control " name="email" required autoComplete="email" onChange={e => setEmail(e.target.value)} autofocus />
                                             </div>
                                         </div>
 
-                                        <div className="form-group row">
-                                            <label htmlFor="password" className="col-md-4 col-form-label text-md-right">Password</label>
-
-                                            <div className="col-md-6">
+                                        <div className="form-group col-md-10 mx-auto">
+                                            <div className="d-flex center align-items-center justify-content-between col-md-12">
+                                            <label htmlFor="password" className="">Password</label>
+                                            <Link className=""  style={{fontSize:'11px', textDecoration:'none'}} to='/resetpassword'   >
+                                                    Forgot Your Password ?
+                                            </Link> 
+                                            </div>
+                                            <div className="col-md-12">
                                                 <input id="password" type="password" className="form-control " name="password" required onChange={e => setPassword(e.target.value)} autoComplete="current-password" />
                                             </div>
                                         </div>
-                                        <div className="form-group row">
+                                        {/* <div className="form-group row">
                                             <div className="col-md-6 offset-md-4">
                                                 <div className="form-check">
                                                     <input className="form-check-input" type="checkbox" name="remember" id="remember" />
@@ -85,22 +82,17 @@ function Login() {
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
 
-                                        <div className="form-group row mb-0">
-                                            <div className="col-md-8 offset-md-4">
-                                                <button type="submit" className="btn btn-primary">
+        
+                                                <button type="submit" style={{padding:'10px 10px', fontSize:'14px'}} className="btn btn-primary d-block mb-2 mx-auto">
                                                     Login
                                                 </button>
-                                                <Link to='/resetpassword'   >
-                                                    Forgot Your Password?
-                                                </Link>
-                                            </div>
-                                        </div>
+                    
                                     </form>
                                 </div>
                             </div>
-                            <hr />
+                            {/* <hr /> */}
                         </div>
                     </div>
                 </div>

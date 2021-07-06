@@ -103,7 +103,7 @@ export const authentificationService = {
                
         return await fetch(`${url}/user/getaccountholderinformation`, requestOptions)
             .then(response => response.json())
-            .then(result=>result.data[0])                     
+            .then(result=>result)                     
         },
 
         getTransacInfo: async function(){ 

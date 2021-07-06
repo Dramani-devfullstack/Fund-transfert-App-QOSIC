@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { authentificationService } from '../Services/authentificationService'
 import { Link } from 'react-router-dom'
 import Loading from '../Loading/Loading';
+import benin from '../img/benin.png'
 import './MoneyTransfert.css'
 
 function ReceiveMoney() {
@@ -33,12 +34,12 @@ function ReceiveMoney() {
                                 <div className="join-field">
                                   <input type="text" id="amount" required min="100" max="500000" name="amount" onChange={(e)=>{setInput(e.target.value)}} placeholder="1000"/>
                                   <div className="curr-select">
-                                    <span className="selected"><img src="http://masizatech.com/assets/fend/images/flags/benin.png" alt=""/>XOF </span>
+                                    <span className="selected"><img src={benin} alt=""/>XOF </span>
                                   </div>
                                 </div>
                               </div>
           
-                              <div className="form-field">
+                              {/* <div className="form-field">
                                 <label for="rcv_country">Receiver Bank</label>
                                 <select id="rcv_country" required name="bank_code">
                                   <option value="">Select Bank</option>
@@ -83,7 +84,7 @@ function ReceiveMoney() {
                                                               <option value="090325">Sparkle</option>
                                                               <option value="305">Paycom</option>
                                                         </select>
-                              </div>
+                              </div> */}
           
                               <div className="form-field">
                                 <label>Rate Exchange  ({ `1NGN =  ${data}  XOF`})  </label>
@@ -99,13 +100,13 @@ function ReceiveMoney() {
                                 </div>
                               </div>
 
-                              <Link style={{margin:'5px', textDecoration:'none'}} to='/login' >
-                              <a className="btn btn-secondary btn-block" >Login</a> 
+                              <Link style={{textDecoration: 'none', display: 'block', margin: '0 auto 0 auto', padding: '1%', fontSize: '12px'}} to='/login' >
+                              <a className="btn btn-secondary btn-block" >Send Money</a> 
                               </Link>
                               
-                              <Link style={{textDecoration:'none'}} to='/register' >
+                              {/* <Link style={{textDecoration: 'none', display: 'block', margin: '0 auto 0 auto', padding: '1%'}} to='/register' >
                               <a className="btn btn-primary btn-block" >Register</a>
-                              </Link>
+                              </Link> */}
                              
                               <span style={{margin:'10px'}} className="accept-terms">By clicking continue, i am agree with <a href="#">Terms &amp; Policy</a></span>
                             </form>          

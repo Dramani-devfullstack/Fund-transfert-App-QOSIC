@@ -3,13 +3,17 @@ import './Account.css'
 import { authentificationService } from '../Services/authentificationService'
 import { useEffect } from 'react'
 import { FaCheckCircle, FaSave,FaEdit } from "react-icons/fa";
+import Loading from '../Loading/Loading'
 
 function Account() {
 
     const[user,setUser]= useState('')
+    const [load, setLoad] = useState(true)
     console.log(user)
+
     useEffect(() => {
-        authentificationService.getUser().then(result =>setUser(result))
+     authentificationService.getUser()
+         .then(result => setUser(result.data[0]))
         let li = document.querySelectorAll('.nav-tabs>li>a')
         let content = document.querySelector('#menu1')
         let content2 = document.querySelector('#menu2')
@@ -45,15 +49,15 @@ function Account() {
         })
 
         return () => {
-            li[0].removeEventListener()
-            li[1].removeEventListener()
-            content.removeEventListener()
-            content2.removeEventListener()
-            updateBtn.removeEventListener()
-            accord.removeEventListener()
-            close.removeEventListener()
+            li[0].removeEventListener('click', null)
+            li[1].removeEventListener('click', null)
+            content.removeEventListener('click', null)
+            content2.removeEventListener('click', null)
+            updateBtn.removeEventListener('click', null)
+            accord.removeEventListener('click', null)
+            close.removeEventListener('click', null)
         }
-    }, [])
+    }, [user])
 
     const name = user.name
     const [fullname, setFullname] = useState('')
@@ -75,7 +79,7 @@ function Account() {
         console.log(name, fullname, msisdn, address, existing_password, confirm_password, new_password)
 
     }
-    return (
+    return  Boolean(user) && (
         <div className="profile-area">
             <h3 className="admin-heading bg-offwhite">
                 <a className="btn-link pbtn" style={{cursor:'pointer'}}><FaEdit/>Update</a>
@@ -209,7 +213,7 @@ function Account() {
                 </div>
             </div>
         </div>
-    )
+    ) 
 }
 
-export default Account
+export default  Account

@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { authentificationService } from '../Services/authentificationService'
 import { FaCheckCircle, FaSearch } from "react-icons/fa";
+import Loading from '../Loading/Loading'
 import './Account.css'
 
 
 function Transactions() {
     const [userInfo, setUserInfo] = useState('')
     const [query, setQuery] = useState('')
+    const [isLoading, setLoading] = useState(false)
     let info = userInfo.records
     console.log(info)
 
-    // useEffect(() => {
-    //     authentificationService.getListTransact(query)
-    //         .then(user => setUserInfo(user))
-    // }, [setUserInfo])
+    
 
     const handleTransactionList = () => {
+        setLoading(true)
         authentificationService.getListTransact(query)
-            .then(user => setUserInfo(user))
+            .then(user =>{
+                if(user.status === '000'){
+                    setLoading(false)
+                    setUserInfo(user)
+                  } }
+                )
     }
 
 
-    return (
+    return isLoading ? <Loading/> : (
 
         <div >
             <h2 className="admin-heading bg-offwhite">Successful Transactions</h2>
