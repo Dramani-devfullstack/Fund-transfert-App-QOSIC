@@ -1,0 +1,10 @@
+
+
+.active_danger {
+    border-color: rgb(252, 8, 0);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(252, 8, 0, 0.5);;
+}
+.active_success {
+    border-color: rgb(31, 241, 42, 0.5);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(31, 241, 42, 0.5);
+}

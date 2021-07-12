@@ -117,7 +117,7 @@ function UserLayout({ children }) {
                       <li onClick={() => setActive('transactions')} className={active === 'transactions' ? "active" : "nav-intem"}>  <a style={{ cursor: 'pointer' }} className="nav-link" ><FaListUl size='1.2em' />  Transactions</a></li>
                     </Link>
                     <Link to='/account' >
-                      <li onClick={() => setActive('account')} className={active === 'account' ? "active" : "nav-intem"}><a style={{ cursor: 'pointer' }} className="nav-link"  ><FaAutoprefixer size='1.3em' /> Settings </a></li>
+                      <li onClick={() => setActive('account')} className={active === 'account' ? "active" : "nav-intem"}><a style={{ cursor: 'pointer' }} className="nav-link"  ><FaAutoprefixer size='1.3em' /> Setting profile </a></li>
                     </Link>
                     {/* Settings  is equal to account, so in the all app you will see account. */}
                   </ul>

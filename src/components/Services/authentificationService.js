@@ -24,11 +24,11 @@ export const authentificationService = {
         })
     },
 
-    login: async function(email, password) {
+    login: async function(input) {
         const requestOptions = {
             method: 'POST',
             headers: header,
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify(input)
         };
     
         return  await fetch(`${url}/login`, requestOptions)

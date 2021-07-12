@@ -119,7 +119,7 @@
 //                        <a style={{cursor:'pointer'}} className="nav-link" ><FaTachometerAlt size='1.3em' /> Dashboard</a>
 //                     </li>
 //                       </Link> 
-//                       <Link  to={`${url}/account`}  >
+//                       <Link >
 //                     <li  onClick={()=>setActive('account')} className={ active ==='account' ? "active" : "nav-intem"}>
 //                           <a style={{cursor:'pointer'}} className="nav-link"  ><FaAutoprefixer size='1.3em'/> Account </a>
 //                     </li>

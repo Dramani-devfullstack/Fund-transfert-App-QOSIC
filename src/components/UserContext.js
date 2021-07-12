@@ -2,6 +2,7 @@
 import { useContext,createContext, useState} from 'react'
 
 const AuthContext = createContext(1)
+const Logged = createContext(null)
 
 export function useAuthContext(){
     return useContext(AuthContext)
@@ -15,3 +16,7 @@ export default function UserProvider({children}){
         </AuthContext.Provider>
     )
 }
+
+
+
+export {Logged}

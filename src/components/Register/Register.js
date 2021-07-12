@@ -118,7 +118,7 @@ function Register() {
                                 </form>
                             </div>
                             </div>
-                            <hr />
+                            {/* <hr /> */}
                         </div>
                     </div>
                 </div>

@@ -3,31 +3,115 @@ import { authentificationService } from '../Services/authentificationService'
 import { useAuthContext } from '../UserContext'
 import { useHistory, Redirect, Link } from "react-router-dom";
 import Loading from '../Loading/Loading';
+import './login.css'
+
+// const stylesSuccess=[ 
+//   { borderColor: 'rgb(31, 241, 42, 0.5)',
+//     boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(31, 241, 42, 0.5)'}
+// ]
+    
+
+
+
+// const stylesError= {
+//     borderColor: 'rgb(252, 8, 0)',
+//     boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(252, 8, 0, 0.5)'
+    
+// }
 
 
 
 function Login() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+
+    const [input, setInput] = useState({ email:'', password:''})
     const [error, setError] = useState(false)
     const [isLoading, setLoading] = useState(false)
+    const [isValid, setIsValid] = useState('');
+    const [message, setMessage] = useState('');
     let history = useHistory();
     const isAuth = useAuthContext()
-    let danger = error.message
+    // console.log(error)
     const loggedIn = isAuth.user
+    console.log(isValid)
+    let inputs = document.querySelector('input#email')
 
+    function  Check_error (){
+       
+        if(isValid===false){
+                inputs.style.borderColor='rgb(252, 8, 0)'
+                inputs.style.boxShadow='0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(252, 8, 0, 0.5)'
+        }else{
+           
+
+        }
+
+    }
+
+    function Check_success(){
+
+        if(isValid===false){
+            inputs.style.borderColor='rgba(31, 241, 42, 0.5)'
+            inputs.style.boxShadow='0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(31, 241, 42, 0.5)'
+    }
+
+    }
+
+   
 
     useEffect(() => {
-        setTimeout(() => {
-            setError(false);
-        }, 10000);
-    }, [loggedIn]
+
+        let inputs = document.querySelector('input#email')
+        console.log(inputs)
+
+        
+
+        // if(isValid===false){
+        //     inputs.addEventListener('onchange', ()=>{
+        //         inputs.style.borderColor='rgb(252, 8, 0)'
+        //         inputs.style.boxShadow='0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(252, 8, 0, 0.5)'
+        //     })
+        // }
+        
+        
+        // if(isValid===true){
+        //     inputs.addEventListener('focus', ()=>{
+        //         inputs.style.borderColor='rgba(31, 241, 42, 0.5)'
+        //         inputs.style.boxShadow='0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(31, 241, 42, 0.5)'
+        //     })
+        // }
+        
+        console.log(inputs)
+
+        // setTimeout(() => {
+        //     setError(false);
+        // }, 10000);
+    }, []
     )
 
-    const loginHandleSubmit = async (e) => {
+    const handleInput =(e)=>{
+        const {name, value} = e.target;
+        setInput((prevFormValues) => ({
+            // ...prevFormValues,
+            [name]: value,
+          }));
+          console.log(input.email)
+
+        const verEmail =  /\S+@\S+\.\S+/
+      if (verEmail.test(input.email)) {
+          setIsValid(true);
+          Check_success()
+        } else {
+          setIsValid(false);
+          Check_error()
+          setMessage(); 
+        }
+           }
+
+    const loginHandleSubmit = async (e) => {    
         e.preventDefault()
         setLoading(true)
-        authentificationService.login(email, password)
+       
+        authentificationService.login(input)
             .then(result => {
                 if (result.status === '000') {
                     localStorage.setItem('currentUser', JSON.stringify(result.data.access_token))
@@ -38,27 +122,34 @@ function Login() {
                     <Redirect to='/login' />
                 }
                 if (result.status === 'Error') {
-                    setError(result)
+                    setError(result.data.error)
+                    setLoading(false)
                 }
             })
     }
     return isLoading ? <Loading/>
         : (
-            <Fragment>
-                <div className="container">
-                    <div className="row justify-content-center">
+            <Fragment >
+               
+                <div className="container" style={{height:'75vh'}} >
+                    <div className="row d-flex align-items-center justify-content-center" style={{backgroundColor:'', height:'50vh'}} >
                         <div className="col-md-8">
                             <div className="card">
                             <div className="card-header py-1 text-center"> <h5>Login</h5> </div>
-                                <div className=' text-center text-danger' >
-                                    <p style={{ fontSize: '16px' }} >{danger}</p>
-                                </div>
-                                <div className="mx-auto col-md-12">
+                            {Boolean(error) ? <div class="alert alert-danger text-center" role="alert">
+                                {error.map((item) => {
+                                    return (
+                                        <p>{item}</p>
+                                    )
+                                })}
+                            </div> : null}
+                                <div className="mx-auto  my-auto col-md-12">
                                     <form onSubmit={loginHandleSubmit}>
                                         <div className="form-group col-md-10 mx-auto">
                                             <label htmlFor="email" className="col-md-12 mx-auto d-block col-form-label">Email</label>
                                             <div className="col-md-12 mx-auto">
-                                                <input id="email" type="email" className="form-control " name="email" required autoComplete="email" onChange={e => setEmail(e.target.value)} autofocus />
+                                                <input id="email" type="email" className="form-control " name="email" required autoComplete="email" onChange={handleInput}  
+                                                autofocus />
                                             </div>
                                         </div>
 
@@ -70,7 +161,8 @@ function Login() {
                                             </Link> 
                                             </div>
                                             <div className="col-md-12">
-                                                <input id="password" type="password" className="form-control " name="password" required onChange={e => setPassword(e.target.value)} autoComplete="current-password" />
+                                                <input id="password" type="password" className="form-control " name="password" required onChange={handleInput}  
+                                                autoComplete="current-password" />
                                             </div>
                                         </div>
                                         {/* <div className="form-group row">

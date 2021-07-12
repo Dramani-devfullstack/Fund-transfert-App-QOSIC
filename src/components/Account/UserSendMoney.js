@@ -11,6 +11,7 @@ import {
     Link,
     useLocation
   } from "react-router-dom"
+  import nigeriaflag from '../img/nigeriaflag.png'
 
 
 
@@ -20,14 +21,16 @@ function useQuery() {
 
 function UserSendMoney() {
 
- 
 
     const [TransfertInfo, setTransfertInfo] = useState(false)
     const [ReceiveInfo, setRecieveInfo] = useState(false)
     const [verification, setVerification] = useState(false)
+    const [res, setRes] = useState(false)
     const [initial, setInitial]=useState(1)
 
     let query = useQuery()
+
+    let rate = res.QOS_SELLAMOUNT
    
     console.log(query.get('status'))
     
@@ -37,6 +40,14 @@ function UserSendMoney() {
     console.log(verification)
    
     useEffect(() => {
+
+        authentificationService.getBasicInfo().then(result=>{
+            if(result.status === '000'){   
+            setRes(result.data.currency[0])
+          }
+        })
+
+
 
         if(query.get('status') !== null){
             setVerification(true)   
@@ -110,6 +121,7 @@ function UserSendMoney() {
         let li = document.querySelectorAll('.nav-tabs>li>a')
         let sendMoney = document.querySelector('#send-money')
         let recieveMoney = document.querySelector('#receive-money')
+        let h1 = document.querySelector('.ban-content>h1')
         li[0].addEventListener('click', function () {
             this.classList.add('active')
             li[1].classList.remove('active')
@@ -117,6 +129,8 @@ function UserSendMoney() {
             sendMoney.classList.add('active')
             recieveMoney.classList.remove('active')
             recieveMoney.classList.remove('show')
+            h1.innerHTML ='Send Money from Nigeria to Benin'
+           
         })
         li[1].addEventListener('click', function () {
             this.classList.add('active')
@@ -125,7 +139,10 @@ function UserSendMoney() {
             sendMoney.classList.remove('active')
             recieveMoney.classList.add('active')
             recieveMoney.classList.add('show')
+            h1.innerHTML ='Send Money from Benin to Nigeria'
         })
+
+       
 
       
         return () => {
@@ -142,6 +159,7 @@ function UserSendMoney() {
     const [email, setEmail] = useState('')
     const [account_number, setAccount_number] = useState('')
     const [bank_code, setBank_code] = useState('Select Bank')
+    const [sender_amount, setSender_amount] = useState('')
     
     const handleSendMoney = (e) => {
         e.preventDefault()
@@ -190,7 +208,7 @@ function UserSendMoney() {
                             <div className="row align-items-center">
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ban-content">
-                                        <h1>Send Money Anytime, Anywhere</h1>
+                                        <h1>Send Money  </h1>
                                         <p></p>
 
                                     </div>
@@ -216,12 +234,36 @@ function UserSendMoney() {
                                                                 name="send_provider_id" value="3" />
                                                             <div className="curr-select">
                                                                 <span className="selected"><img
-                                                                    src="http://masizatech.com/assets/fend/images/flags/nigeria.png"
+                                                                    src={nigeriaflag}
                                                                     alt="" />NGN &nbsp;
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
+
+
+                                                    <div className="form-field">
+                                                        <label>Exchange Rate </label>
+                                                        <div className="join-field">
+                                                            <input type="text" required
+                                                                onChange={(e) => {setReceiver_number(e.target.value)}}
+                                                                name="receiver_number"
+                                                                placeholder="22990505050" />
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div className="form-field">
+                                                        <label>Receiver Amont (MOOV/MTN BJ) </label>
+                                                        <div className="join-field">
+                                                            <input type="text" required
+                                                                onChange={(e) => {setReceiver_number(e.target.value)}}
+                                                                name="receiver_number"
+                                                                placeholder="22990505050"
+                                                                value={amount} />
+                                                        </div>
+                                                    </div>
+
 
                                                     <div className="form-field">
                                                         <label>Receiver Number (MOOV/MTN BJ) </label>
