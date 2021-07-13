@@ -4,12 +4,16 @@ import '../Account/Account.css'
 import { FaTachometerAlt, FaBars, FaChevronDown, FaAutoprefixer, FaPaperPlane, FaListUl } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { authentificationService } from '../Services/authentificationService'
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useLocation } from "react-router-dom";
 import { useAuthContext } from '../UserContext'
 
 
 
 function UserLayout({ children }) {
+  const currentUser = localStorage.getItem('currentUser')
+  const location = useLocation();
+
+  
   const [active, setActive] = useState('dashboard')
   const [style, setStyle] = useState(false)
   const [user, setUser] = useState(false)
@@ -17,11 +21,26 @@ function UserLayout({ children }) {
   // const isAuth = useAuthContext()
   // const user = isAuth.user
   console.log(user)
-
+  let path = location.pathname
+  console.log(location.pathname)
+  let callBackUrl = window.location.href;
+  console.log('callbacurl', callBackUrl)
 
   useEffect(() => {
-    authentificationService.getUser().then(result =>setUser(result))
-  }, [setUser,setStyle,setActive])
+    authentificationService.getUser().then(result =>setUser(result));
+    if(!Boolean(currentUser || currentUser === 'undefined' || currentUser ==='')){
+      history.push({
+        pathname:'/login',
+        path:'/login',
+        search: 'callbackurl='+callBackUrl
+      }) 
+    };
+
+   
+    console.log(location.search)
+    // console.log(location.state.result)
+    
+  }, [setStyle,setUser,setActive])
 
   function handleLogout() {
     authentificationService.logout().

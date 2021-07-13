@@ -53,13 +53,13 @@ function SendMoney() {
                                 </div>
                               </div>
                               
-                              <Link style={{margin:'5px', textDecoration:'none'}}  to='/login' >
-                              <a  className="btn btn-secondary btn-block" >Login</a> 
+                              <Link style={{margin:'5px', textDecoration:'none'}}  to='/sendmoney' >
+                              <a  className="btn btn-secondary btn-block" >Send Money</a> 
                               </Link>
                               
-                              <Link style={{textDecoration:'none'}}  to='/register' >
+                              {/* <Link style={{textDecoration:'none'}}  to='/register' >
                               <a className="btn btn-primary btn-block" >Register</a>
-                              </Link>
+                              </Link> */}
                                 <span style={{margin:'10px'}} className="accept-terms">By clicking continue, i am agree with <a href="#">Terms &amp; Policy</a></span>
                             </form>
                           </div>

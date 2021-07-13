@@ -1,9 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { authentificationService } from '../Services/authentificationService'
 import { useAuthContext } from '../UserContext'
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { useHistory, Redirect, Link, useLocation } from "react-router-dom";
 import Loading from '../Loading/Loading';
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
 
 function Login() {
@@ -15,14 +18,16 @@ function Login() {
     const isAuth = useAuthContext()
     let danger = error.message
     const loggedIn = isAuth.user
-
-
+    const location = useLocation();
+    let query = useQuery()
+   let callbackurl= query.get('callbackurl');
     useEffect(() => {
         // if (loggedIn) {
         //     history.push('/dashboard')
         // } else {
         //     <Redirect to='/login' />
         // }
+        console.log(location.pathname)
 
         setTimeout(() => {
             setError(false);
@@ -37,7 +42,13 @@ function Login() {
             .then(result => {
                 if (result.status === '000') {
                     localStorage.setItem('currentUser', JSON.stringify(result.data.access_token))
-                    history.push('/dashboard')
+                    console.log('get callback', callbackurl)
+                    if(callbackurl){
+                        window.location.replace(callbackurl)
+                    }else{
+                         history.push('/dashboard')
+                    }
+                   
                     authentificationService.getUser().then(user => isAuth.setUser(user))
                     setLoading(false)
                 }else{
@@ -45,6 +56,7 @@ function Login() {
                 }
                 if (result.status === 'Error') {
                     setError(result)
+                    setLoading(false)
                 }
             })
     }
